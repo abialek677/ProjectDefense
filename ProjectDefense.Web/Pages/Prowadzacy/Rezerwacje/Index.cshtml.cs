@@ -70,5 +70,19 @@ namespace ProjectDefense.Web.Pages.Prowadzacy.Rezerwacje
             TempData["SuccessMessage"] = "Rezerwacja została anulowana.";
             return RedirectToPage();
         }
+        
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            var rezerwacja = await _context.Rezerwacje.FindAsync(id);
+
+            if (rezerwacja == null)
+                return NotFound();
+
+            _context.Rezerwacje.Remove(rezerwacja);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Slot został usunięty na stałe.";
+            return RedirectToPage();
+        }
     }
 }

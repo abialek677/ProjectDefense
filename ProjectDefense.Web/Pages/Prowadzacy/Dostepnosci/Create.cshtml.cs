@@ -39,7 +39,10 @@ namespace ProjectDefense.Web.Pages.Prowadzacy.Dostepnosci
                 await LoadSaleSelectList();
                 return Page();
             }
-
+            
+            Dostepnosc.DataPoczatkowa = DateTime.SpecifyKind(Dostepnosc.DataPoczatkowa, DateTimeKind.Utc);
+            Dostepnosc.DataKoncowa = DateTime.SpecifyKind(Dostepnosc.DataKoncowa, DateTimeKind.Utc);
+            
             // Walidacja biznesowa
             if (Dostepnosc.DataKoncowa < Dostepnosc.DataPoczatkowa)
             {

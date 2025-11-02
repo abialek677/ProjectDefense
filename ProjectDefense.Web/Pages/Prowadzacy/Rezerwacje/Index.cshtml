@@ -81,10 +81,18 @@
                                         Anuluj
                                     </button>
                                 </form>
+
                                 <a asp-page="Reschedule" asp-route-id="@rez.Id" class="btn btn-sm btn-primary">
                                     Przepisz
                                 </a>
                             }
+                        <td>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@rez.Id" class="d-inline"
+                                  onsubmit="return confirm('Czy na pewno chcesz usunąć ten slot na stałe?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Usuń na stałe
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 }

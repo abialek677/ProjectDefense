@@ -9,6 +9,6 @@ public class ApplicationUser : IdentityUser
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         
     // Navigation properties
-    public virtual ICollection<Rezerwacja> Rezerwacje { get; set; }
-    public virtual ICollection<DostepnoscProwadzacego> Dostepnosci { get; set; }
+    public virtual ICollection<Rezerwacja> Rezerwacje { get; set; } = [];
+    public virtual ICollection<DostepnoscProwadzacego> Dostepnosci { get; set; } = [];
 }

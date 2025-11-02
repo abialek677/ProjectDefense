@@ -295,7 +295,6 @@ namespace ProjectDefense.Web.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("ProwadzacyId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("SalaId")
@@ -448,8 +447,7 @@ namespace ProjectDefense.Web.Migrations
                     b.HasOne("ProjectDefense.Shared.Entities.ApplicationUser", "Prowadzacy")
                         .WithMany("Dostepnosci")
                         .HasForeignKey("ProwadzacyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ProjectDefense.Shared.Entities.Sala", "Sala")
                         .WithMany("Dostepnosci")

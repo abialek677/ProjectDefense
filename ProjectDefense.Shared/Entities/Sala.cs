@@ -17,5 +17,5 @@ public class Sala
     public bool IsActive { get; set; } = true;
         
     // Navigation properties
-    public virtual ICollection<DostepnoscProwadzacego> Dostepnosci { get; set; }
+    public virtual ICollection<DostepnoscProwadzacego> Dostepnosci { get; set; } = [];
 }

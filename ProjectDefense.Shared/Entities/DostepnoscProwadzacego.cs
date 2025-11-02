@@ -5,9 +5,8 @@ namespace ProjectDefense.Shared.Entities;
 public class DostepnoscProwadzacego
 {
     public int Id { get; set; }
-        
-    [Required]
-    public string ProwadzacyId { get; set; } = string.Empty;
+    
+    public string? ProwadzacyId { get; set; }
         
     [Required]
     public int SalaId { get; set; }
@@ -31,7 +30,7 @@ public class DostepnoscProwadzacego
     public bool IsBlocked { get; set; } = false;
         
     // Navigation properties
-    public virtual ApplicationUser Prowadzacy { get; set; }
-    public virtual Sala Sala { get; set; }
-    public virtual ICollection<Rezerwacja> Rezerwacje { get; set; }
+    public virtual ApplicationUser? Prowadzacy { get; set; }
+    public virtual Sala? Sala { get; set; }
+    public virtual ICollection<Rezerwacja> Rezerwacje { get; set; } = [];
 }
