@@ -1,0 +1,92 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Prowadzacy.Dostepnosci.IndexModel
+@{
+    ViewData["Title"] = "Moje dostępności";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Moje dostępności</h1>
+        <p>
+            <a asp-page="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Dodaj dostępność
+            </a>
+        </p>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (Model.Dostepnosci.Any())
+        {
+            <table class="table table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>Sala</th>
+                    <th>Data początkowa</th>
+                    <th>Data końcowa</th>
+                    <th>Godziny</th>
+                    <th>Czas slotu</th>
+                    <th>Status</th>
+                    <th>Akcje</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var dostepnosc in Model.Dostepnosci)
+                {
+                    <tr class="@(dostepnosc.IsBlocked ? "table-danger" : "")">
+                        <td>@dostepnosc.Sala.Nazwa (@dostepnosc.Sala.NumerSali)</td>
+                        <td>@dostepnosc.DataPoczatkowa.ToString("dd.MM.yyyy")</td>
+                        <td>@dostepnosc.DataKoncowa.ToString("dd.MM.yyyy")</td>
+                        <td>@dostepnosc.GodzinaRozpoczecia.ToString(@"hh\:mm") - @dostepnosc.GodzinaZakonczenia.ToString(@"hh\:mm")</td>
+                        <td>@dostepnosc.CzasTrwaniaSlotuWMin min</td>
+                        <td>
+                            @if (dostepnosc.IsBlocked)
+                            {
+                                <span class="badge bg-danger">Zablokowany</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Aktywny</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!dostepnosc.IsBlocked)
+                            {
+                                <form method="post" asp-page-handler="Block" asp-route-id="@dostepnosc.Id" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-warning"
+                                            onclick="return confirm('Czy na pewno chcesz zablokować ten okres?');">
+                                        Blokuj
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form method="post" asp-page-handler="Unblock" asp-route-id="@dostepnosc.Id" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        Odblokuj
+                                    </button>
+                                </form>
+                            }
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@dostepnosc.Id" class="d-inline"
+                                  onsubmit="return confirm('Czy na pewno chcesz usunąć tę dostępność? Zostaną usunięte wszystkie powiązane rezerwacje.');">
+                                <button type="submit" class="btn btn-sm btn-danger">Usuń</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                Nie masz jeszcze zdefiniowanych dostępności. Dodaj nową, aby rozpocząć.
+            </div>
+        }
+    </div>
+</div>

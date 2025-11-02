@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project Defense</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-page="/Index">Project Defense</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    @if (User.IsInRole("Prowadzący"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Panel Prowadzącego
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-page="/Prowadzacy/Sale/Index">Sale</a></li>
+                                <li><a class="dropdown-item" asp-page="/Prowadzacy/Dostepnosci/Index">Dostępności</a></li>
+                                <li><a class="dropdown-item" asp-page="/Prowadzacy/Rezerwacje/Index">Rezerwacje</a></li>
+                                <li><a class="dropdown-item" asp-page="/Prowadzacy/Blokady/Index">Blokady i Bany</a></li>
+                                <li><a class="dropdown-item" asp-page="/Prowadzacy/Eksport/Index">Eksport</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Student"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Student/Rezerwacje/Index">Moje Rezerwacje</a>
+                        </li>
+                    }
+                </ul>
+                <partial name="_LoginPartial" />
+                <div class="ms-3">
+                    <form method="get" class="d-inline">
+                        <select name="culture" onchange="this.form.submit()" class="form-select form-select-sm">
+                            <option value="pl-PL" selected="@(System.Globalization.CultureInfo.CurrentCulture.Name == "pl-PL")">Polski</option>
+                            <option value="en-US" selected="@(System.Globalization.CultureInfo.CurrentCulture.Name == "en-US")">English</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2025 - Project Defense System
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

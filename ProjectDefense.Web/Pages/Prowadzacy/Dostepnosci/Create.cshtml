@@ -1,0 +1,68 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Prowadzacy.Dostepnosci.CreateModel
+@{
+    ViewData["Title"] = "Dodaj dostępność";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h1>Dodaj nową dostępność</h1>
+        <p class="text-muted">System automatycznie wygeneruje sloty czasowe na podstawie podanych parametrów.</p>
+
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Dostepnosc.SalaId" class="form-label">Sala</label>
+                <select asp-for="Dostepnosc.SalaId" class="form-select" asp-items="Model.SaleSelectList">
+                    <option value="">-- Wybierz salę --</option>
+                </select>
+                <span asp-validation-for="Dostepnosc.SalaId" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Dostepnosc.DataPoczatkowa" class="form-label">Data początkowa</label>
+                    <input asp-for="Dostepnosc.DataPoczatkowa" type="date" class="form-control" />
+                    <span asp-validation-for="Dostepnosc.DataPoczatkowa" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Dostepnosc.DataKoncowa" class="form-label">Data końcowa</label>
+                    <input asp-for="Dostepnosc.DataKoncowa" type="date" class="form-control" />
+                    <span asp-validation-for="Dostepnosc.DataKoncowa" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Dostepnosc.GodzinaRozpoczecia" class="form-label">Godzina rozpoczęcia</label>
+                    <input asp-for="Dostepnosc.GodzinaRozpoczecia" type="time" class="form-control" />
+                    <span asp-validation-for="Dostepnosc.GodzinaRozpoczecia" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Dostepnosc.GodzinaZakonczenia" class="form-label">Godzina zakończenia</label>
+                    <input asp-for="Dostepnosc.GodzinaZakonczenia" type="time" class="form-control" />
+                    <span asp-validation-for="Dostepnosc.GodzinaZakonczenia" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Dostepnosc.CzasTrwaniaSlotuWMin" class="form-label">Czas trwania pojedynczego slotu (minuty)</label>
+                <input asp-for="Dostepnosc.CzasTrwaniaSlotuWMin" type="number" class="form-control" min="5" max="120" value="15" />
+                <span asp-validation-for="Dostepnosc.CzasTrwaniaSlotuWMin" class="text-danger"></span>
+                <div class="form-text">Rekomendowane: 15-30 minut</div>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Zapisz i wygeneruj sloty</button>
+                <a asp-page="Index" class="btn btn-secondary">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

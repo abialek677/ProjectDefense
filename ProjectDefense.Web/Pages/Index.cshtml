@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Strona główna";
+}
+
+<div class="text-center">
+    <h1 class="display-4">System rezerwacji "Project Defense"</h1>
+    <p class="lead">System zarządzania zapisami studentów na oddawanie projektów</p>
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="mt-4">
+            @if (User.IsInRole("Prowadzący"))
+            {
+                <div class="alert alert-info">
+                    <h4>Panel Prowadzącego</h4>
+                    <p>Witaj! Zarządzaj salami, dostępnościami i rezerwacjami.</p>
+                    <a asp-page="/Prowadzacy/Sale/Index" class="btn btn-primary">Przejdź do panelu</a>
+                </div>
+            }
+            else if (User.IsInRole("Student"))
+            {
+                <div class="alert alert-success">
+                    <h4>Panel Studenta</h4>
+                    <p>Witaj! Zarezerwuj termin oddania projektu.</p>
+                    <a asp-page="/Student/Rezerwacje/Index" class="btn btn-primary">Zobacz dostępne terminy</a>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="mt-4">
+            <p>Zaloguj się, aby korzystać z systemu rezerwacji.</p>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Zaloguj się</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">Zarejestruj się</a>
+        </div>
+    }
+</div>

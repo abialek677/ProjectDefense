@@ -1,0 +1,59 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Student.Rezerwacje.ChangeModel
+@{
+    ViewData["Title"] = "Zmień termin";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Zmień termin rezerwacji</h1>
+
+        <div class="card mb-3">
+            <div class="card-header bg-info text-white">
+                Twoja aktualna rezerwacja
+            </div>
+            <div class="card-body">
+                <p><strong>Sala:</strong> @Model.AktualnaRezerwacja.DostepnoscProwadzacego.Sala.Nazwa</p>
+                <p><strong>Termin:</strong> @Model.AktualnaRezerwacja.CzasRozpoczecia.ToString("dd.MM.yyyy HH:mm") - @Model.AktualnaRezerwacja.CzasZakonczenia.ToString("HH:mm")</p>
+            </div>
+        </div>
+
+        <h3>Wybierz nowy termin</h3>
+
+        @if (Model.WolneSloty.Any())
+        {
+            <div class="row">
+                @foreach (var slot in Model.WolneSloty)
+                {
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                @slot.DostepnoscProwadzacego.Sala.Nazwa (@slot.DostepnoscProwadzacego.Sala.NumerSali)
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <strong>Data:</strong> @slot.CzasRozpoczecia.ToString("dd.MM.yyyy")<br/>
+                                    <strong>Godziny:</strong> @slot.CzasRozpoczecia.ToString("HH:mm") - @slot.CzasZakonczenia.ToString("HH:mm")<br/>
+                                    <strong>Prowadzący:</strong> @slot.DostepnoscProwadzacego.Prowadzacy.FirstName @slot.DostepnoscProwadzacego.Prowadzacy.LastName
+                                </p>
+                                <form method="post" asp-route-nowySlotId="@slot.Id">
+                                    <button type="submit" class="btn btn-success w-100">Wybierz ten termin</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                Brak innych dostępnych terminów.
+            </div>
+        }
+
+        <div class="mt-3">
+            <a asp-page="Index" class="btn btn-secondary">Anuluj</a>
+        </div>
+    </div>
+</div>

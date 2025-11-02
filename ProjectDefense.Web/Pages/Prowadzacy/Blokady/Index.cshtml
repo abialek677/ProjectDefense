@@ -1,0 +1,80 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Prowadzacy.Blokady.IndexModel
+@{
+    ViewData["Title"] = "Zarządzanie blokadami";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Zarządzanie blokadami studentów</h1>
+        
+        <p>
+            <a asp-page="Create" class="btn btn-danger">
+                <i class="bi bi-ban"></i> Zbanuj studenta
+            </a>
+        </p>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (Model.Blokady.Any())
+        {
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student</th>
+                        <th>Email</th>
+                        <th>Powód</th>
+                        <th>Data blokady</th>
+                        <th>Zablokował</th>
+                        <th>Status</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var blokada in Model.Blokady)
+                    {
+                        <tr class="@(blokada.IsActive ? "table-danger" : "table-secondary")">
+                            <td>@blokada.Student.FirstName @blokada.Student.LastName</td>
+                            <td>@blokada.Student.Email</td>
+                            <td>@blokada.Powod</td>
+                            <td>@blokada.DataBlokady.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@blokada.BlokowalProwadzacy.FirstName @blokada.BlokowalProwadzacy.LastName</td>
+                            <td>
+                                @if (blokada.IsActive)
+                                {
+                                    <span class="badge bg-danger">Aktywna</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Nieaktywna</span>
+                                }
+                            </td>
+                            <td>
+                                @if (blokada.IsActive)
+                                {
+                                    <form method="post" asp-page-handler="Unblock" asp-route-id="@blokada.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            Odblokuj
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                Brak zablokowanych studentów.
+            </div>
+        }
+    </div>
+</div>
