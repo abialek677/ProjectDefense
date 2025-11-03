@@ -11,6 +11,9 @@ namespace ProjectDefense.Web.Pages.Prowadzacy.Rezerwacje
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        
+        [BindProperty(SupportsGet = true)]
+        public bool PokazPrzeszle { get; set; }
 
         public IndexModel(ApplicationDbContext context)
         {
@@ -49,6 +52,11 @@ namespace ProjectDefense.Web.Pages.Prowadzacy.Rezerwacje
             else if (Status == "wolne")
             {
                 query = query.Where(r => r.StudentId == null);
+            }
+            
+            if (!PokazPrzeszle)
+            {
+                query = query.Where(r => r.CzasZakonczenia > DateTime.UtcNow);
             }
 
             Rezerwacje = await query

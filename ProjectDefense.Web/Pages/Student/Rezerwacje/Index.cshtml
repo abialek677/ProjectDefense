@@ -8,6 +8,7 @@
     <div class="col-md-12">
         <h1>Moje rezerwacje</h1>
 
+        <a asp-page="History" class="btn btn-outline-info mb-3">Zobacz historię rezerwacji</a>
         @if (TempData["SuccessMessage"] != null)
         {
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,7 +24,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         }
-
+        
         @if (Model.MojaRezerwacja != null)
         {
             <div class="alert alert-info">
@@ -32,8 +33,8 @@
                     <div class="card-body">
                         <h5 class="card-title">@Model.MojaRezerwacja.DostepnoscProwadzacego.Sala.Nazwa (@Model.MojaRezerwacja.DostepnoscProwadzacego.Sala.NumerSali)</h5>
                         <p class="card-text">
-                            <strong>Data:</strong> @Model.MojaRezerwacja.CzasRozpoczecia.ToString("dddd, dd.MM.yyyy")<br/>
-                            <strong>Godziny:</strong> @Model.MojaRezerwacja.CzasRozpoczecia.ToString("HH:mm") - @Model.MojaRezerwacja.CzasZakonczenia.ToString("HH:mm")<br/>
+                            <strong>Data:</strong> @Model.MojaRezerwacja.CzasRozpoczecia.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br/>
+                            <strong>Godziny:</strong> @Model.MojaRezerwacja.CzasRozpoczecia.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @Model.MojaRezerwacja.CzasZakonczenia.ToString("t", System.Globalization.CultureInfo.CurrentCulture)<br/>
                             <strong>Prowadzący:</strong> @Model.MojaRezerwacja.DostepnoscProwadzacego.Prowadzacy.FirstName @Model.MojaRezerwacja.DostepnoscProwadzacego.Prowadzacy.LastName
                         </p>
                         <form method="post" asp-page-handler="Cancel" class="d-inline">

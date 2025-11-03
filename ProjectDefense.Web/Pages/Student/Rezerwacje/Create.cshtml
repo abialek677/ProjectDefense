@@ -1,59 +1,51 @@
 ﻿@page
-@model ProjectDefense.Web.Pages.Student.Rezerwacje.ChangeModel
+@model ProjectDefense.Web.Pages.Student.Rezerwacje.CreateModel
 @{
-    ViewData["Title"] = "Zmień termin";
+    ViewData["Title"] = "Nowa rezerwacja";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <h1>Zmień termin rezerwacji</h1>
+<h2>Wybierz termin rezerwacji</h2>
 
-        <div class="card mb-3">
-            <div class="card-header bg-info text-white">
-                Twoja aktualna rezerwacja
-            </div>
-            <div class="card-body">
-                <p><strong>Sala:</strong> @Model.AktualnaRezerwacja.DostepnoscProwadzacego.Sala.Nazwa</p>
-                <p><strong>Termin:</strong> @Model.AktualnaRezerwacja.CzasRozpoczecia.ToString("dd.MM.yyyy HH:mm") - @Model.AktualnaRezerwacja.CzasZakonczenia.ToString("HH:mm")</p>
-            </div>
-        </div>
-
-        <h3>Wybierz nowy termin</h3>
-
-        @if (Model.WolneSloty.Any())
-        {
-            <div class="row">
-                @foreach (var slot in Model.WolneSloty)
-                {
-                    <div class="col-md-6 col-lg-4 mb-3">
-                        <div class="card">
-                            <div class="card-header bg-primary text-white">
-                                @slot.DostepnoscProwadzacego.Sala.Nazwa (@slot.DostepnoscProwadzacego.Sala.NumerSali)
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    <strong>Data:</strong> @slot.CzasRozpoczecia.ToString("dd.MM.yyyy")<br/>
-                                    <strong>Godziny:</strong> @slot.CzasRozpoczecia.ToString("HH:mm") - @slot.CzasZakonczenia.ToString("HH:mm")<br/>
-                                    <strong>Prowadzący:</strong> @slot.DostepnoscProwadzacego.Prowadzacy.FirstName @slot.DostepnoscProwadzacego.Prowadzacy.LastName
-                                </p>
-                                <form method="post" asp-route-nowySlotId="@slot.Id">
-                                    <button type="submit" class="btn btn-success w-100">Wybierz ten termin</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-info">
-                Brak innych dostępnych terminów.
-            </div>
-        }
-
-        <div class="mt-3">
-            <a asp-page="Index" class="btn btn-secondary">Anuluj</a>
-        </div>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
     </div>
-</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="SalaId" class="form-label">Sala</label>
+        <select asp-for="SalaId" class="form-select" asp-items="Model.SaleSelectList">
+            <option value="">-- Wybierz salę --</option>
+        </select>
+        <span asp-validation-for="SalaId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Date" class="form-label">Data</label>
+        <input asp-for="Date" type="date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SlotId" class="form-label">Termin (godzina)</label>
+        <select asp-for="SlotId" class="form-select" asp-items="Model.SlotSelectList">
+            <option value="">-- Wybierz termin --</option>
+        </select>
+        <span asp-validation-for="SlotId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Rezerwuj</button>
+    <a asp-page="Index" class="btn btn-secondary">Anuluj</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

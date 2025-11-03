@@ -40,9 +40,9 @@
                 {
                     <tr class="@(dostepnosc.IsBlocked ? "table-danger" : "")">
                         <td>@dostepnosc.Sala.Nazwa (@dostepnosc.Sala.NumerSali)</td>
-                        <td>@dostepnosc.DataPoczatkowa.ToString("dd.MM.yyyy")</td>
-                        <td>@dostepnosc.DataKoncowa.ToString("dd.MM.yyyy")</td>
-                        <td>@dostepnosc.GodzinaRozpoczecia.ToString(@"hh\:mm") - @dostepnosc.GodzinaZakonczenia.ToString(@"hh\:mm")</td>
+                        <td>@dostepnosc.DataPoczatkowa.ToString("d", System.Globalization.CultureInfo.CurrentCulture)</td>
+                        <td>@dostepnosc.DataKoncowa.ToString("d", System.Globalization.CultureInfo.CurrentCulture)</td>
+                        <td>@dostepnosc.GodzinaRozpoczecia.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @dostepnosc.GodzinaZakonczenia.ToString("t", System.Globalization.CultureInfo.CurrentCulture)</td>
                         <td>@dostepnosc.CzasTrwaniaSlotuWMin min</td>
                         <td>
                             @if (dostepnosc.IsBlocked)

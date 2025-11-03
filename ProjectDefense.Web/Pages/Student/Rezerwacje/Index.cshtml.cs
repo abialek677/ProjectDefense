@@ -29,6 +29,17 @@ namespace ProjectDefense.Web.Pages.Student.Rezerwacje
         {
             var user = await _userManager.GetUserAsync(User);
             var now = DateTime.UtcNow;
+
+            var isBanned = await _context.BlokadyStudentow
+                .AnyAsync(b => b.StudentId == user.Id && b.IsActive);
+
+            if (isBanned)
+            {
+                TempData["ErrorMessage"] = "Twoje konto zostało zablokowane przez prowadzącego. Skontaktuj się z administracją.";
+                WolneSloty = new List<Rezerwacja>();
+                MojaRezerwacja = null;
+                return;
+            }
             
             // Pobierz rezerwację studenta
             MojaRezerwacja = await _context.Rezerwacje

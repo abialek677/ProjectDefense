@@ -43,7 +43,7 @@
                             <td>@blokada.Student.FirstName @blokada.Student.LastName</td>
                             <td>@blokada.Student.Email</td>
                             <td>@blokada.Powod</td>
-                            <td>@blokada.DataBlokady.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@blokada.DataBlokady.ToString("g", System.Globalization.CultureInfo.CurrentCulture)</td>
                             <td>@blokada.BlokowalProwadzacy.FirstName @blokada.BlokowalProwadzacy.LastName</td>
                             <td>
                                 @if (blokada.IsActive)

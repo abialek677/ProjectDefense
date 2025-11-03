@@ -7,7 +7,7 @@ namespace ProjectDefense.ConsoleApp
     {
         private static readonly HttpClient client = new HttpClient
         {
-            BaseAddress = new Uri("https://localhost:5291/") // Zmień na właściwy adres
+            BaseAddress = new Uri("https://localhost:5291/")
         };
         
         static async Task Main(string[] args)

@@ -1,47 +1,44 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Prowadzacy.Rezerwacje.RescheduleModel
 @{
-    ViewData["Title"] = "Przepisz studenta";
+    ViewData["Title"] = "Przepisz studenta na inny termin";
 }
 
-<div class="row">
-    <div class="col-md-8">
-        <h1>Przepisz studenta na inny termin</h1>
+<h2>Przepisz rezerwację studenta</h2>
 
-        <div class="card mb-3">
-            <div class="card-header bg-info text-white">
-                Aktualna rezerwacja
-            </div>
-            <div class="card-body">
-                <p><strong>Student:</strong> @Model.AktualnaRezerwacja.Student.FirstName @Model.AktualnaRezerwacja.Student.LastName</p>
-                <p><strong>Sala:</strong> @Model.AktualnaRezerwacja.DostepnoscProwadzacego.Sala.Nazwa</p>
-                <p><strong>Termin:</strong> @Model.AktualnaRezerwacja.CzasRozpoczecia.ToString("dd.MM.yyyy HH:mm") - @Model.AktualnaRezerwacja.CzasZakonczenia.ToString("HH:mm")</p>
-            </div>
-        </div>
-
-        <form method="post">
-            <input type="hidden" asp-for="RezerwacjaId" />
-
-            <div class="mb-3">
-                <label class="form-label">Wybierz nowy termin</label>
-                <select asp-for="NowySlotId" class="form-select" size="10">
-                    @foreach (var slot in Model.WolneSloty)
-                    {
-                        <option value="@slot.Id">
-                            @slot.DostepnoscProwadzacego.Sala.Nazwa - @slot.CzasRozpoczecia.ToString("dd.MM.yyyy HH:mm") - @slot.CzasZakonczenia.ToString("HH:mm")
-                        </option>
-                    }
-                </select>
-                <span asp-validation-for="NowySlotId" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Przepisz</button>
-                <a asp-page="Index" class="btn btn-secondary">Anuluj</a>
-            </div>
-        </form>
+@if (Model.AktualnaRezerwacja != null)
+{
+    <div class="mb-3">
+        <strong>Aktualnie:</strong><br />
+        Sala: @Model.AktualnaRezerwacja.DostepnoscProwadzacego.Sala.Nazwa<br />
+        Data: @Model.AktualnaRezerwacja.CzasRozpoczecia.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
+        Godzina: @Model.AktualnaRezerwacja.CzasRozpoczecia.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @Model.AktualnaRezerwacja.CzasZakonczenia.ToString("t", System.Globalization.CultureInfo.CurrentCulture)<br />
+        Student: @Model.AktualnaRezerwacja.Student?.FirstName @Model.AktualnaRezerwacja.Student?.LastName
     </div>
-</div>
+}
+
+<form method="post">
+    <input type="hidden" asp-for="RezerwacjaId" />
+
+    <div class="mb-3">
+        <label asp-for="NowySlotId" class="form-label">Nowy termin:</label>
+        <select asp-for="NowySlotId" class="form-select">
+            <option value="">-- Wybierz termin --</option>
+            @foreach (var slot in Model.WolneSloty)
+            {
+                <option value="@slot.Id">
+                    @slot.DostepnoscProwadzacego.Sala.Nazwa
+                    (@slot.CzasRozpoczecia.ToString("d", System.Globalization.CultureInfo.CurrentCulture))
+                    @slot.CzasRozpoczecia.ToString("t", System.Globalization.CultureInfo.CurrentCulture)-@slot.CzasZakonczenia.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
+                </option>
+            }
+        </select>
+        <span asp-validation-for="NowySlotId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Przepisz</button>
+    <a asp-page="Index" class="btn btn-secondary">Wróć</a>
+</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
