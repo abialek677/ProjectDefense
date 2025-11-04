@@ -5,70 +5,70 @@ using ProjectDefense.Shared.Entities;
 namespace ProjectDefense.Shared.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
-        
-        public DbSet<Sala> Sale { get; set; }
-        public DbSet<DostepnoscProwadzacego> DostepnosciProwadzacych { get; set; }
-        public DbSet<Rezerwacja> Rezerwacje { get; set; }
-        public DbSet<BlokadaStudenta> BlokadyStudentow { get; set; }
-        
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            
-            // Konfiguracja relacji Rezerwacja - Student
-            builder.Entity<Rezerwacja>()
-                .HasOne(r => r.Student)
-                .WithMany(u => u.Rezerwacje)
-                .HasForeignKey(r => r.StudentId)
-                .OnDelete(DeleteBehavior.SetNull);
-            
-            // Konfiguracja relacji Rezerwacja - DostepnoscProwadzacego
-            builder.Entity<Rezerwacja>()
-                .HasOne(r => r.DostepnoscProwadzacego)
-                .WithMany(d => d.Rezerwacje)
-                .HasForeignKey(r => r.DostepnoscProwadzacegoId)
-                .OnDelete(DeleteBehavior.Cascade);
-            
-            // Konfiguracja relacji DostepnoscProwadzacego - Prowadzacy
-            builder.Entity<DostepnoscProwadzacego>()
-                .HasOne(d => d.Prowadzacy)
-                .WithMany(u => u.Dostepnosci)
-                .HasForeignKey(d => d.ProwadzacyId)
-                .OnDelete(DeleteBehavior.Cascade);
-            
-            // Konfiguracja relacji DostepnoscProwadzacego - Sala
-            builder.Entity<DostepnoscProwadzacego>()
-                .HasOne(d => d.Sala)
-                .WithMany(s => s.Dostepnosci)
-                .HasForeignKey(d => d.SalaId)
-                .OnDelete(DeleteBehavior.Cascade);
-            
-            // Konfiguracja relacji BlokadaStudenta
-            builder.Entity<BlokadaStudenta>()
-                .HasOne(b => b.Student)
-                .WithMany()
-                .HasForeignKey(b => b.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            builder.Entity<BlokadaStudenta>()
-                .HasOne(b => b.BlokowalProwadzacy)
-                .WithMany()
-                .HasForeignKey(b => b.BlokowalProwadzacyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            // Indeksy dla lepszej wydajności
-            builder.Entity<Rezerwacja>()
-                .HasIndex(r => r.CzasRozpoczecia);
-            
-            builder.Entity<Rezerwacja>()
-                .HasIndex(r => r.StudentId);
-            
-            builder.Entity<DostepnoscProwadzacego>()
-                .HasIndex(d => new { d.SalaId, d.DataPoczatkowa, d.DataKoncowa });
-        }
     }
+
+    public DbSet<Room> Rooms { get; set; }
+    public DbSet<InstructorAvailability> InstructorAvailabilities { get; set; }
+    public DbSet<Reservation> Reservations { get; set; }
+    public DbSet<StudentBlock> StudentBlocks { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        // Configure relationship: Reservation - Student
+        builder.Entity<Reservation>()
+            .HasOne(r => r.Student)
+            .WithMany(u => u.Reservations)
+            .HasForeignKey(r => r.StudentId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        // Configure relationship: Reservation - InstructorAvailability
+        builder.Entity<Reservation>()
+            .HasOne(r => r.InstructorAvailability)
+            .WithMany(d => d.Reservations)
+            .HasForeignKey(r => r.InstructorAvailabilityId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configure relationship: InstructorAvailability - Instructor
+        builder.Entity<InstructorAvailability>()
+            .HasOne(d => d.Instructor)
+            .WithMany(u => u.Availabilities)
+            .HasForeignKey(d => d.InstructorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configure relationship: InstructorAvailability - Room
+        builder.Entity<InstructorAvailability>()
+            .HasOne(d => d.Room)
+            .WithMany(s => s.Availabilities)
+            .HasForeignKey(d => d.RoomId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configure relationship: StudentBlock
+        builder.Entity<StudentBlock>()
+            .HasOne(b => b.Student)
+            .WithMany()
+            .HasForeignKey(b => b.StudentId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<StudentBlock>()
+            .HasOne(b => b.BlockingInstructor)
+            .WithMany()
+            .HasForeignKey(b => b.BlockingInstructorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Indexes for better performance
+        builder.Entity<Reservation>()
+            .HasIndex(r => r.StartTime);
+
+        builder.Entity<Reservation>()
+            .HasIndex(r => r.StudentId);
+
+        builder.Entity<InstructorAvailability>()
+            .HasIndex(d => new { d.RoomId, StartTime = d.StartDate, EndTime = d.EndDate });
+    }
+}

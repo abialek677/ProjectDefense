@@ -1,0 +1,80 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Instructor.Blocks.IndexModel
+@{
+    ViewData["Title"] = "Manage Student Blocks";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Manage Student Blocks</h1>
+        
+        <p>
+            <a asp-page="Create" class="btn btn-danger">
+                <i class="bi bi-ban"></i> Ban Student
+            </a>
+        </p>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (Model.Blocks.Any())
+        {
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student</th>
+                        <th>Email</th>
+                        <th>Reason</th>
+                        <th>Ban Date</th>
+                        <th>Banned By</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var block in Model.Blocks)
+                    {
+                        <tr class="@(block.IsActive ? "table-danger" : "table-secondary")">
+                            <td>@block.Student.FirstName @block.Student.LastName</td>
+                            <td>@block.Student.Email</td>
+                            <td>@block.BlockReason</td>
+                            <td>@block.BlockDate.ToString("g")</td>
+                            <td>@block.BlockingInstructor.FirstName @block.BlockingInstructor.LastName</td>
+                            <td>
+                                @if (block.IsActive)
+                                {
+                                    <span class="badge bg-danger">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Inactive</span>
+                                }
+                            </td>
+                            <td>
+                                @if (block.IsActive)
+                                {
+                                    <form method="post" asp-page-handler="Unblock" asp-route-id="@block.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            Unblock
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                No banned students found.
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Student.Reservations.CreateModel
+@{
+    ViewData["Title"] = "New Reservation";
+}
+
+<h2>Select Reservation Time</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="RoomId" class="form-label">Room</label>
+        <select asp-for="RoomId" class="form-select" asp-items="Model.RoomSelectList">
+            <option value="">-- Select a room --</option>
+        </select>
+        <span asp-validation-for="RoomId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Date" class="form-label">Date</label>
+        <input asp-for="Date" type="date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SlotId" class="form-label">Time Slot</label>
+        <select asp-for="SlotId" class="form-select" asp-items="Model.SlotSelectList">
+            <option value="">-- Select a time slot --</option>
+        </select>
+        <span asp-validation-for="SlotId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Book</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

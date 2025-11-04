@@ -1,0 +1,59 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Student.Reservations.ChangeModel
+@{
+    ViewData["Title"] = "Change Reservation Date";
+}
+
+<h2>Change Reservation Date</h2>
+
+@if (Model.CurrentReservation != null)
+{
+    <div>
+        <strong>Current reservation:</strong><br />
+        Room: @Model.CurrentReservation.InstructorAvailability.Room.Name<br />
+        Date: @Model.CurrentReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
+        Time: @Model.CurrentReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @Model.CurrentReservation.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
+    </div>
+}
+
+@if (Model.AvailableSlots != null && Model.AvailableSlots.Any())
+{
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Instructor</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var slot in Model.AvailableSlots)
+            {
+                <tr>
+                    <td>@slot.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @slot.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)</td>
+                    <td>@slot.InstructorAvailability.Instructor.FirstName</td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="NewSlotId" value="@slot.Id" />
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Select this time
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        No available free slots in this room for the selected day.
+    </div>
+}
+
+<a asp-page="Index" class="btn btn-secondary mt-3">Back</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

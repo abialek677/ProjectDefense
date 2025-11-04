@@ -1,0 +1,47 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Instructor.Reservations.Reschedule
+@{
+    ViewData["Title"] = "Reschedule Student";
+}
+
+<h2>Reschedule Student Reservation</h2>
+
+@if (Model.CurrentReservation != null)
+{
+    <div class="mb-3">
+        <strong>Current Reservation:</strong><br />
+        Room: @Model.CurrentReservation.InstructorAvailability.Room.Name<br />
+        Date: @Model.CurrentReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
+        Time: @Model.CurrentReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - 
+        @Model.CurrentReservation.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)<br />
+        Student: @Model.CurrentReservation.Student?.FirstName @Model.CurrentReservation.Student?.LastName
+    </div>
+}
+
+<form method="post">
+    <input type="hidden" asp-for="ReservationId" />
+
+    <div class="mb-3">
+        <label asp-for="NewSlotId" class="form-label">Select New Slot</label>
+        <select asp-for="NewSlotId" class="form-select">
+            <option value="">-- Choose a slot --</option>
+            @foreach (var slot in Model.AvailableSlots)
+            {
+                <option value="@slot.Id">
+                    @slot.InstructorAvailability.Room.Name
+                    (@slot.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture))
+                    @slot.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) -
+                    @slot.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
+                </option>
+            }
+        </select>
+        <span asp-validation-for="NewSlotId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Reschedule</button>
+    <a asp-page="Index" class="btn btn-secondary">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,47 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Student.Reservations.HistoryModel
+@{
+    ViewData["Title"] = "My Previous Reservations";
+}
+
+<h2>My Previous Reservations</h2>
+
+@if (Model.HistoryReservations.Any())
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Room</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var reservation in Model.HistoryReservations)
+        {
+            <tr>
+                <td>@reservation.InstructorAvailability.Room.Name</td>
+                <td>@reservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)</td>
+                <td>@reservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @reservation.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)</td>
+                <td>
+                    @if (reservation.StudentId != null)
+                    {
+                        <span>Completed</span>
+                    }
+                    else
+                    {
+                        <span>Cancelled by user</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No previous reservations found.</div>
+}
+
+<a asp-page="Index" class="btn btn-secondary mt-2">Back</a>

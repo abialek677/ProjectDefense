@@ -1,0 +1,75 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Instructor.Availabilities.CreateModel
+@{
+    ViewData["Title"] = "Add Availability";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h1>Add New Availability</h1>
+        <p class="text-muted">The system will automatically generate time slots based on the provided parameters.</p>
+
+        <form method="post">
+            <!-- Validation messages -->
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <!-- Room selection -->
+            <div class="mb-3">
+                <label asp-for="Availability.RoomId" class="form-label">Room</label>
+                <select asp-for="Availability.RoomId" class="form-select" asp-items="Model.RoomSelectList">
+                    <option value="">-- Select Room --</option>
+                </select>
+                <span asp-validation-for="Availability.RoomId" class="text-danger"></span>
+            </div>
+
+            <!-- Date selection -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Availability.StartDate" class="form-label">Start Date</label>
+                    <input asp-for="Availability.StartDate" type="date" class="form-control" />
+                    <span asp-validation-for="Availability.StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Availability.EndDate" class="form-label">End Date</label>
+                    <input asp-for="Availability.EndDate" type="date" class="form-control" />
+                    <span asp-validation-for="Availability.EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Time selection -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Availability.StartHour" class="form-label">Start Time</label>
+                    <input asp-for="Availability.StartHour" type="time" class="form-control" />
+                    <span asp-validation-for="Availability.StartHour" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Availability.EndHour" class="form-label">End Time</label>
+                    <input asp-for="Availability.EndHour" type="time" class="form-control" />
+                    <span asp-validation-for="Availability.EndHour" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Slot duration -->
+            <div class="mb-3">
+                <label asp-for="Availability.SlotDurationMinutes" class="form-label">Slot Duration (minutes)</label>
+                <input asp-for="Availability.SlotDurationMinutes" type="number" class="form-control" min="5" max="120" value="15" />
+                <span asp-validation-for="Availability.SlotDurationMinutes" class="text-danger"></span>
+                <div class="form-text">Recommended: 15–30 minutes</div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="mb-3 d-flex gap-2">
+                <button type="submit" class="btn btn-success">Save and Generate Slots</button>
+                <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

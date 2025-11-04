@@ -3,6 +3,6 @@
 public class RoomDto
 {
     public int Id { get; set; }
-    public string Nazwa { get; set; } = string.Empty;
-    public string NumerSali { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string RoomNumber { get; set; } = string.Empty;
 }

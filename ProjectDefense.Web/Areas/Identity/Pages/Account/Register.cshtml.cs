@@ -80,9 +80,17 @@ namespace ProjectDefense.Web.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
             
-            [Required(ErrorMessage = "Wybierz rolę")]
+            [Required(ErrorMessage = "Choose role")]
             [Display(Name = "Rola")]
             public string Role { get; set; }
+            
+            [Required(ErrorMessage = "First name can't be empty")]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessage = "Last name can't be empty")]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -121,6 +129,8 @@ namespace ProjectDefense.Web.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

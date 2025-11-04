@@ -1,0 +1,98 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Student.Reservations.Index
+@{
+    ViewData["Title"] = "My Reservations";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>My Reservations</h1>
+
+        <a asp-page="History" class="btn btn-outline-info mb-3">View Reservation History</a>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (Model.MyReservation != null)
+        {
+            <div class="alert alert-info">
+                <h4>Your Current Reservation</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Model.MyReservation.InstructorAvailability.Room.Name
+                            (@Model.MyReservation.InstructorAvailability.Room.RoomNumber)
+                        </h5>
+                        <p class="card-text">
+                            <strong>Date:</strong> @Model.MyReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
+                            <strong>Time:</strong> @Model.MyReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
+                            - @Model.MyReservation.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)<br />
+                            <strong>Instructor:</strong> @Model.MyReservation.InstructorAvailability.Instructor.FirstName @Model.MyReservation.InstructorAvailability.Instructor.LastName
+                        </p>
+                        <form method="post" asp-page-handler="Cancel" class="d-inline">
+                            <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to cancel your reservation?');">
+                                Cancel Reservation
+                            </button>
+                        </form>
+                        <a asp-page="Change" class="btn btn-warning">Change Date</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                <strong>You don’t have an active reservation.</strong> Choose an available slot below.
+            </div>
+
+            @if (Model.FreeReservations.Any())
+            {
+                <h3>Available Slots</h3>
+                <p class="text-muted">Click "Reserve" to book your selected time slot.</p>
+
+                <div class="row">
+                    @foreach (var slot in Model.FreeReservations)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="card">
+                                <div class="card-header bg-success text-white">
+                                    @slot.InstructorAvailability.Room.Name (@slot.InstructorAvailability.Room.RoomNumber)
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <strong>Date:</strong> @slot.StartTime.ToString("dd.MM.yyyy")<br />
+                                        <strong>Time:</strong> @slot.StartTime.ToString("HH:mm") - @slot.EndTime.ToString("HH:mm")<br />
+                                        <strong>Instructor:</strong> @slot.InstructorAvailability.Instructor.FirstName @slot.InstructorAvailability.Instructor.LastName
+                                    </p>
+                                    <form method="post" asp-page-handler="Book" asp-route-slotId="@slot.Id">
+                                        <button type="submit" class="btn btn-primary w-100">Reserve</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-3">
+                    No available slots at the moment. Please check again later.
+                </div>
+            }
+        }
+    </div>
+</div>

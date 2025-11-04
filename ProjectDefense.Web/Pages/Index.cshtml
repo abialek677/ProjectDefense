@@ -1,30 +1,30 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Strona główna";
+    ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">System rezerwacji "Project Defense"</h1>
-    <p class="lead">System zarządzania zapisami studentów na oddawanie projektów</p>
-    
+    <h1 class="display-4">Project Defense Reservation System</h1>
+    <p class="lead">A system for managing student project defense appointments</p>
+
     @if (User.Identity.IsAuthenticated)
     {
         <div class="mt-4">
-            @if (User.IsInRole("Prowadzący"))
+            @if (User.IsInRole("Instructor"))
             {
                 <div class="alert alert-info">
-                    <h4>Panel Prowadzącego</h4>
-                    <p>Witaj! Zarządzaj salami, dostępnościami i rezerwacjami.</p>
-                    <a asp-page="/Prowadzacy/Sale/Index" class="btn btn-primary">Przejdź do panelu</a>
+                    <h4>Instructor Panel</h4>
+                    <p>Welcome! Manage rooms, availability, and reservations.</p>
+                    <a asp-page="/Instructor/Rooms/Index" class="btn btn-primary">Go to Panel</a>
                 </div>
             }
             else if (User.IsInRole("Student"))
             {
                 <div class="alert alert-success">
-                    <h4>Panel Studenta</h4>
-                    <p>Witaj! Zarezerwuj termin oddania projektu.</p>
-                    <a asp-page="/Student/Rezerwacje/Index" class="btn btn-primary">Zobacz dostępne terminy</a>
+                    <h4>Student Panel</h4>
+                    <p>Welcome! Reserve your project defense slot.</p>
+                    <a asp-page="/Student/Reservations/Index" class="btn btn-primary">View Available Slots</a>
                 </div>
             }
         </div>
@@ -32,9 +32,9 @@
     else
     {
         <div class="mt-4">
-            <p>Zaloguj się, aby korzystać z systemu rezerwacji.</p>
-            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Zaloguj się</a>
-            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">Zarejestruj się</a>
+            <p>Please log in to access the reservation system.</p>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Log In</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">Register</a>
         </div>
     }
 </div>

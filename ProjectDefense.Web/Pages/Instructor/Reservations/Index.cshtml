@@ -1,0 +1,126 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Instructor.Reservations.Index
+@{
+    ViewData["Title"] = "Manage Reservations";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>All Reservations</h1>
+
+        <form method="get" class="row g-3 mb-3">
+            <div class="col-md-3">
+                <label for="roomId" class="form-label">Filter by Room</label>
+                <select name="roomId" class="form-select" onchange="this.form.submit()">
+                    <option value="">All Rooms</option>
+                    @foreach (var room in Model.Rooms)
+                    {
+                        <option value="@room.Id" selected="@(Model.FilteredRoomId == room.Id)">
+                            @room.Name (@room.RoomNumber)
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select" onchange="this.form.submit()">
+                    <option value="all" selected="@(Model.Status == "all")">All</option>
+                    <option value="booked" selected="@(Model.Status == "booked")">Booked</option>
+                    <option value="free" selected="@(Model.Status == "free")">Free</option>
+                </select>
+            </div>
+
+            <div class="col-md-2 mt-4">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="showPast" name="ShowPast" value="true"
+                           @(Model.ShowPast ? "checked" : "") onchange="this.form.submit()" />
+                    <label class="form-check-label" for="showPast">Show Past</label>
+                </div>
+            </div>
+        </form>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (Model.Reservations.Any())
+        {
+            <table class="table table-striped table-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Room</th>
+                        <th>Date</th>
+                        <th>Hours</th>
+                        <th>Student</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var res in Model.Reservations)
+                {
+                    <tr class="@(res.StudentId != null ? "table-warning" : "")">
+                        <td>@res.Id</td>
+                        <td>@res.InstructorAvailability.Room.Name</td>
+                        <td>@res.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)</td>
+                        <td>@res.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) -
+                            @res.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)</td>
+                        <td>
+                            @if (res.Student != null)
+                            {
+                                <span>@res.Student.FirstName @res.Student.LastName</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Available</span>
+                            }
+                        </td>
+                        <td>@res.Student?.Email</td>
+                        <td>
+                            @if (res.EndTime > DateTime.UtcNow)
+                            {
+                                @if (res.StudentId != null)
+                                {
+                                    <form method="post" asp-page-handler="Cancel" asp-route-id="@res.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure you want to cancel this reservation?');">
+                                            Cancel
+                                        </button>
+                                    </form>
+
+                                    <a asp-page="Reschedule" asp-route-id="@res.Id" class="btn btn-sm btn-primary">
+                                        Reschedule
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">Finished</span>
+                            }
+
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@res.Id" class="d-inline"
+                                  onsubmit="return confirm('Are you sure you want to permanently delete this slot?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                No reservations match your filters.
+            </div>
+        }
+    </div>
+</div>

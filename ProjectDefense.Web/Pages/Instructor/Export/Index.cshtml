@@ -1,0 +1,52 @@
+﻿@page
+@model ProjectDefense.Web.Pages.Instructor.Export.IndexModel
+@{
+    ViewData["Title"] = "Export Reservations";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h1>Export Reservations</h1>
+        <p class="text-muted">Select a room, date range, and export format.</p>
+
+        <form method="post">
+            <!-- Room selection -->
+            <div class="mb-3">
+                <label asp-for="RoomId" class="form-label">Room</label>
+                <select asp-for="RoomId" class="form-select" asp-items="Model.RoomsSelectList">
+                    <option value="">-- Select Room --</option>
+                </select>
+                <span asp-validation-for="RoomId" class="text-danger"></span>
+            </div>
+
+            <!-- Date range -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="StartDate" class="form-label">From</label>
+                    <input asp-for="StartDate" type="date" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="EndDate" class="form-label">To</label>
+                    <input asp-for="EndDate" type="date" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Export format buttons -->
+            <div class="mb-3">
+                <label class="form-label">Export Format</label>
+                <div class="btn-group" role="group">
+                    <button type="submit" asp-page-handler="ExportTxt" class="btn btn-outline-primary">TXT</button>
+                    <button type="submit" asp-page-handler="ExportExcel" class="btn btn-outline-success">XLSX (Excel)</button>
+                    <button type="submit" asp-page-handler="ExportPdf" class="btn btn-outline-danger">PDF</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
