@@ -16,14 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 // QuestPDF setup
 QuestPDF.Settings.License = LicenseType.Community;
 
-// Database setup (PostgreSQL)
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        npgsqlOptions => npgsqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 3,
-            maxRetryDelay: TimeSpan.FromSeconds(5),
-            errorCodesToAdd: null)));
 
 // Identity configuration
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -99,7 +91,9 @@ builder.Services.AddScoped<ExportService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly("ProjectDefense.Web")));
+        b => b.MigrationsAssembly("ProjectDefense.Shared")
+            .EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromSeconds(5), errorCodesToAdd: null)));
+
 
 var app = builder.Build();
 
