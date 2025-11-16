@@ -1,20 +1,21 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Instructor.Export.IndexModel
+
 @{
-    ViewData["Title"] = "Export Reservations";
+    ViewData["Title"] = Localizer["ExportReservationsTitle"];
 }
 
 <div class="row">
     <div class="col-md-8">
-        <h1>Export Reservations</h1>
-        <p class="text-muted">Select a room, date range, and export format.</p>
+        <h1>@Localizer["ExportReservationsTitle"]</h1>
+        <p class="text-muted">@Localizer["ExportReservationsSubtitle"]</p>
 
         <form method="post">
             <!-- Room selection -->
             <div class="mb-3">
-                <label asp-for="RoomId" class="form-label">Room</label>
+                <label asp-for="RoomId" class="form-label">@Localizer["RoomLabel"]</label>
                 <select asp-for="RoomId" class="form-select" asp-items="Model.RoomsSelectList">
-                    <option value="">-- Select Room --</option>
+                    <option value="">@Localizer["SelectRoomOption"]</option>
                 </select>
                 <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
@@ -22,13 +23,13 @@
             <!-- Date range -->
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label asp-for="StartDate" class="form-label">From</label>
+                    <label asp-for="StartDate" class="form-label">@Localizer["FromLabel"]</label>
                     <input asp-for="StartDate" type="date" class="form-control" />
                     <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label asp-for="EndDate" class="form-label">To</label>
+                    <label asp-for="EndDate" class="form-label">@Localizer["ToLabel"]</label>
                     <input asp-for="EndDate" type="date" class="form-control" />
                     <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
@@ -36,11 +37,11 @@
 
             <!-- Export format buttons -->
             <div class="mb-3">
-                <label class="form-label">Export Format</label>
+                <label class="form-label">@Localizer["ExportFormatLabel"]</label>
                 <div class="btn-group" role="group">
-                    <button type="submit" asp-page-handler="ExportTxt" class="btn btn-outline-primary">TXT</button>
-                    <button type="submit" asp-page-handler="ExportExcel" class="btn btn-outline-success">XLSX (Excel)</button>
-                    <button type="submit" asp-page-handler="ExportPdf" class="btn btn-outline-danger">PDF</button>
+                    <button type="submit" asp-page-handler="ExportTxt" class="btn btn-outline-primary">@Localizer["ExportTxtButton"]</button>
+                    <button type="submit" asp-page-handler="ExportExcel" class="btn btn-outline-success">@Localizer["ExportExcelButton"]</button>
+                    <button type="submit" asp-page-handler="ExportPdf" class="btn btn-outline-danger">@Localizer["ExportPdfButton"]</button>
                 </div>
             </div>
         </form>

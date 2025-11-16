@@ -1,14 +1,15 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Student.Reservations.Index
+
 @{
-    ViewData["Title"] = "My Reservations";
+    ViewData["Title"] = Localizer["MyReservationsTitle"];
 }
 
 <div class="row">
     <div class="col-md-12">
-        <h1>My Reservations</h1>
+        <h1>@Localizer["MyReservationsTitle"]</h1>
 
-        <a asp-page="History" class="btn btn-outline-info mb-3">View Reservation History</a>
+        <a asp-page="History" class="btn btn-outline-info mb-3">@Localizer["ViewReservationHistory"]</a>
 
         @if (TempData["SuccessMessage"] != null)
         {
@@ -29,7 +30,7 @@
         @if (Model.MyReservation != null)
         {
             <div class="alert alert-info">
-                <h4>Your Current Reservation</h4>
+                <h4>@Localizer["YourCurrentReservation"]</h4>
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -37,18 +38,18 @@
                             (@Model.MyReservation.InstructorAvailability.Room.RoomNumber)
                         </h5>
                         <p class="card-text">
-                            <strong>Date:</strong> @Model.MyReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
-                            <strong>Time:</strong> @Model.MyReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
+                            <strong>@Localizer["DateLabel"]</strong> @Model.MyReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
+                            <strong>@Localizer["TimeLabel"]</strong> @Model.MyReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
                             - @Model.MyReservation.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)<br />
-                            <strong>Instructor:</strong> @Model.MyReservation.InstructorAvailability.Instructor.FirstName @Model.MyReservation.InstructorAvailability.Instructor.LastName
+                            <strong>@Localizer["InstructorLabel"]</strong> @Model.MyReservation.InstructorAvailability.Instructor.FirstName @Model.MyReservation.InstructorAvailability.Instructor.LastName
                         </p>
                         <form method="post" asp-page-handler="Cancel" class="d-inline">
                             <button type="submit" class="btn btn-danger"
-                                    onclick="return confirm('Are you sure you want to cancel your reservation?');">
-                                Cancel Reservation
+                                    onclick="return confirm('@Localizer["CancelReservationButton"]?');">
+                                @Localizer["CancelReservationButton"]
                             </button>
                         </form>
-                        <a asp-page="Change" class="btn btn-warning">Change Date</a>
+                        <a asp-page="Change" class="btn btn-warning">@Localizer["ChangeDateButton"]</a>
                     </div>
                 </div>
             </div>
@@ -56,13 +57,13 @@
         else
         {
             <div class="alert alert-warning">
-                <strong>You don’t have an active reservation.</strong> Choose an available slot below.
+                <strong>@Localizer["NoActiveReservation"]</strong>
             </div>
 
             @if (Model.FreeReservations.Any())
             {
-                <h3>Available Slots</h3>
-                <p class="text-muted">Click "Reserve" to book your selected time slot.</p>
+                <h3>@Localizer["AvailableSlotsTitle"]</h3>
+                <p class="text-muted">@Localizer["AvailableSlotsHint"]</p>
 
                 <div class="row">
                     @foreach (var slot in Model.FreeReservations)
@@ -74,12 +75,12 @@
                                 </div>
                                 <div class="card-body">
                                     <p class="card-text">
-                                        <strong>Date:</strong> @slot.StartTime.ToString("dd.MM.yyyy")<br />
-                                        <strong>Time:</strong> @slot.StartTime.ToString("HH:mm") - @slot.EndTime.ToString("HH:mm")<br />
-                                        <strong>Instructor:</strong> @slot.InstructorAvailability.Instructor.FirstName @slot.InstructorAvailability.Instructor.LastName
+                                        <strong>@Localizer["DateLabel"]</strong> @slot.StartTime.ToString(Localizer["DateFormat"])<br />
+                                        <strong>@Localizer["TimeLabel"]</strong> @slot.StartTime.ToString(Localizer["TimeFormat"]) - @slot.EndTime.ToString(Localizer["TimeFormat"])<br />
+                                        <strong>@Localizer["InstructorLabel"]</strong> @slot.InstructorAvailability.Instructor.FirstName @slot.InstructorAvailability.Instructor.LastName
                                     </p>
                                     <form method="post" asp-page-handler="Book" asp-route-slotId="@slot.Id">
-                                        <button type="submit" class="btn btn-primary w-100">Reserve</button>
+                                        <button type="submit" class="btn btn-primary w-100">@Localizer["ReserveButton"]</button>
                                     </form>
                                 </div>
                             </div>
@@ -90,7 +91,7 @@
             else
             {
                 <div class="alert alert-info mt-3">
-                    No available slots at the moment. Please check again later.
+                    @Localizer["NoAvailableSlots"]
                 </div>
             }
         }

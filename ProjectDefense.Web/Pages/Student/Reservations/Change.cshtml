@@ -1,18 +1,19 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Student.Reservations.ChangeModel
+
 @{
-    ViewData["Title"] = "Change Reservation Date";
+    ViewData["Title"] = Localizer["ChangeReservationTitle"];
 }
 
-<h2>Change Reservation Date</h2>
+<h2>@Localizer["ChangeReservationTitle"]</h2>
 
 @if (Model.CurrentReservation != null)
 {
     <div>
-        <strong>Current reservation:</strong><br />
-        Room: @Model.CurrentReservation.InstructorAvailability.Room.Name<br />
-        Date: @Model.CurrentReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
-        Time: @Model.CurrentReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @Model.CurrentReservation.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
+        <strong>@Localizer["CurrentReservation"]</strong><br />
+        @Localizer["Room"]: @Model.CurrentReservation.InstructorAvailability.Room.Name<br />
+        @Localizer["Date"]: @Model.CurrentReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
+        @Localizer["Time"]: @Model.CurrentReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @Model.CurrentReservation.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
     </div>
 }
 
@@ -21,9 +22,9 @@
     <table class="table table-bordered mt-4">
         <thead>
             <tr>
-                <th>Time</th>
-                <th>Instructor</th>
-                <th>Action</th>
+                <th>@Localizer["TimeColumn"]</th>
+                <th>@Localizer["InstructorColumn"]</th>
+                <th>@Localizer["ActionColumn"]</th>
             </tr>
         </thead>
         <tbody>
@@ -35,9 +36,7 @@
                     <td>
                         <form method="post">
                             <input type="hidden" name="NewSlotId" value="@slot.Id" />
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                Select this time
-                            </button>
+                            <button type="submit" class="btn btn-primary btn-sm">@Localizer["SelectTimeButton"]</button>
                         </form>
                     </td>
                 </tr>
@@ -48,11 +47,11 @@
 else
 {
     <div class="alert alert-info">
-        No available free slots in this room for the selected day.
+        @Localizer["NoAvailableSlots"]
     </div>
 }
 
-<a asp-page="Index" class="btn btn-secondary mt-3">Back</a>
+<a asp-page="Index" class="btn btn-secondary mt-3">@Localizer["Back"]</a>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

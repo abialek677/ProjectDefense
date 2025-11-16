@@ -1,20 +1,21 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Student.Reservations.HistoryModel
+
 @{
-    ViewData["Title"] = "My Previous Reservations";
+    ViewData["Title"] = Localizer["MyPreviousReservationsTitle"];
 }
 
-<h2>My Previous Reservations</h2>
+<h2>@Localizer["MyPreviousReservationsTitle"]</h2>
 
 @if (Model.HistoryReservations.Any())
 {
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Room</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Status</th>
+            <th>@Localizer["RoomLabel"]</th>
+            <th>@Localizer["DateLabel"]</th>
+            <th>@Localizer["TimeLabel"]</th>
+            <th>@Localizer["StatusLabel"]</th>
         </tr>
         </thead>
         <tbody>
@@ -27,11 +28,11 @@
                 <td>
                     @if (reservation.StudentId != null)
                     {
-                        <span>Completed</span>
+                        <span>@Localizer["CompletedLabel"]</span>
                     }
                     else
                     {
-                        <span>Cancelled by user</span>
+                        <span>@Localizer["CancelledByUserLabel"]</span>
                     }
                 </td>
             </tr>
@@ -41,7 +42,7 @@
 }
 else
 {
-    <div class="alert alert-info">No previous reservations found.</div>
+    <div class="alert alert-info">@Localizer["NoPreviousReservations"]</div>
 }
 
-<a asp-page="Index" class="btn btn-secondary mt-2">Back</a>
+<a asp-page="Index" class="btn btn-secondary mt-2">@Localizer["BackButton"]</a>

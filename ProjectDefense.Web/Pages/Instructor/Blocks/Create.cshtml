@@ -1,12 +1,13 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Instructor.Blocks.CreateModel
+
 @{
-    ViewData["Title"] = "Ban Student";
+    ViewData["Title"] = Localizer["BanStudentTitle"];
 }
 
 <div class="row">
     <div class="col-md-6">
-        <h1>Ban Student</h1>
+        <h1>@Localizer["BanStudentTitle"]</h1>
 
         <form method="post">
             <!-- Validation summary -->
@@ -14,24 +15,24 @@
 
             <!-- Student selection -->
             <div class="mb-3">
-                <label asp-for="StudentId" class="form-label">Student</label>
+                <label asp-for="StudentId" class="form-label">@Localizer["SelectStudentLabel"]</label>
                 <select asp-for="StudentId" class="form-select" asp-items="Model.StudentsSelectList">
-                    <option value="">-- Select Student --</option>
+                    <option value="">@Localizer["SelectStudentOption"]</option>
                 </select>
                 <span asp-validation-for="StudentId" class="text-danger"></span>
             </div>
 
             <!-- Ban reason -->
             <div class="mb-3">
-                <label asp-for="Reason" class="form-label">Reason for Ban</label>
-                <textarea asp-for="Reason" class="form-control" rows="3" placeholder="Enter the reason for banning this student"></textarea>
+                <label asp-for="Reason" class="form-label">@Localizer["ReasonLabel"]</label>
+                <textarea asp-for="Reason" class="form-control" rows="3" placeholder="@Localizer["ReasonPlaceholder"]"></textarea>
                 <span asp-validation-for="Reason" class="text-danger"></span>
             </div>
 
             <!-- Action buttons -->
             <div class="mb-3 d-flex gap-2">
-                <button type="submit" class="btn btn-danger">Ban Student</button>
-                <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-danger">@Localizer["BanButton"]</button>
+                <a asp-page="Index" class="btn btn-secondary">@Localizer["CancelButton"]</a>
             </div>
         </form>
     </div>

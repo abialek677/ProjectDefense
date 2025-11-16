@@ -1,49 +1,50 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Student.Reservations.CreateModel
+
 @{
-    ViewData["Title"] = "New Reservation";
+    ViewData["Title"] = Localizer["NewReservationTitle"];
 }
 
-<h2>Select Reservation Time</h2>
+<h2>@Localizer["SelectReservationTime"]</h2>
 
 @if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
+        @Localizer["ErrorMessage"]: @TempData["ErrorMessage"]
     </div>
 }
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success">
-        @TempData["SuccessMessage"]
+        @Localizer["SuccessMessage"]: @TempData["SuccessMessage"]
     </div>
 }
 
 <form method="post">
     <div class="mb-3">
-        <label asp-for="RoomId" class="form-label">Room</label>
+        <label asp-for="RoomId" class="form-label">@Localizer["RoomLabel"]</label>
         <select asp-for="RoomId" class="form-select" asp-items="Model.RoomSelectList">
-            <option value="">-- Select a room --</option>
+            <option value="">@Localizer["SelectRoomOption"]</option>
         </select>
         <span asp-validation-for="RoomId" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="Date" class="form-label">Date</label>
+        <label asp-for="Date" class="form-label">@Localizer["DateLabel"]</label>
         <input asp-for="Date" type="date" class="form-control" />
         <span asp-validation-for="Date" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="SlotId" class="form-label">Time Slot</label>
+        <label asp-for="SlotId" class="form-label">@Localizer["TimeSlotLabel"]</label>
         <select asp-for="SlotId" class="form-select" asp-items="Model.SlotSelectList">
-            <option value="">-- Select a time slot --</option>
+            <option value="">@Localizer["SelectTimeSlotOption"]</option>
         </select>
         <span asp-validation-for="SlotId" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Book</button>
-    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">@Localizer["BookButton"]</button>
+    <a asp-page="Index" class="btn btn-secondary">@Localizer["CancelButton"]</a>
 </form>
 
 @section Scripts {

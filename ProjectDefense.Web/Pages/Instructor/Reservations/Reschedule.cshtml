@@ -1,20 +1,22 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Instructor.Reservations.Reschedule
+
+
 @{
-    ViewData["Title"] = "Reschedule Student";
+    ViewData["Title"] = Localizer["RescheduleTitle"];
 }
 
-<h2>Reschedule Student Reservation</h2>
+<h2>@Localizer["RescheduleHeading"]</h2>
 
 @if (Model.CurrentReservation != null)
 {
     <div class="mb-3">
-        <strong>Current Reservation:</strong><br />
-        Room: @Model.CurrentReservation.InstructorAvailability.Room.Name<br />
-        Date: @Model.CurrentReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
-        Time: @Model.CurrentReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - 
+        <strong>@Localizer["CurrentReservationLabel"]</strong><br />
+        @Localizer["RoomLabel"]: @Model.CurrentReservation.InstructorAvailability.Room.Name<br />
+        @Localizer["DateLabel"]: @Model.CurrentReservation.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
+        @Localizer["TimeLabel"]: @Model.CurrentReservation.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - 
         @Model.CurrentReservation.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)<br />
-        Student: @Model.CurrentReservation.Student?.FirstName @Model.CurrentReservation.Student?.LastName
+        @Localizer["StudentLabel"]: @Model.CurrentReservation.Student?.FirstName @Model.CurrentReservation.Student?.LastName
     </div>
 }
 
@@ -22,9 +24,9 @@
     <input type="hidden" asp-for="ReservationId" />
 
     <div class="mb-3">
-        <label asp-for="NewSlotId" class="form-label">Select New Slot</label>
+        <label asp-for="NewSlotId" class="form-label">@Localizer["SelectNewSlotLabel"]</label>
         <select asp-for="NewSlotId" class="form-select">
-            <option value="">-- Choose a slot --</option>
+            <option value="">@Localizer["ChooseSlotOption"]</option>
             @foreach (var slot in Model.AvailableSlots)
             {
                 <option value="@slot.Id">
@@ -38,8 +40,8 @@
         <span asp-validation-for="NewSlotId" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Reschedule</button>
-    <a asp-page="Index" class="btn btn-secondary">Back</a>
+    <button type="submit" class="btn btn-primary">@Localizer["RescheduleButton"]</button>
+    <a asp-page="Index" class="btn btn-secondary">@Localizer["BackButton"]</a>
 </form>
 
 @section Scripts {

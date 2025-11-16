@@ -1,31 +1,32 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Instructor.Rooms.Create
+
 @{
-    ViewData["Title"] = "Add Room";
+    ViewData["Title"] = Localizer["AddRoomTitle"];
 }
 
 <div class="row">
     <div class="col-md-6">
-        <h1>Add a New Room</h1>
+        <h1>@Localizer["AddRoomHeading"]</h1>
 
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="mb-3">
-                <label asp-for="Room.Name" class="form-label">Room Name</label>
-                <input asp-for="Room.Name" class="form-control" placeholder="e.g. Laboratory A" />
+                <label asp-for="Room.Name" class="form-label">@Localizer["RoomNameLabel"]</label>
+                <input asp-for="Room.Name" class="form-control" placeholder="@Localizer["RoomNamePlaceholder"]" />
                 <span asp-validation-for="Room.Name" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Room.RoomNumber" class="form-label">Room Number</label>
-                <input asp-for="Room.RoomNumber" class="form-control" placeholder="e.g. 101" />
+                <label asp-for="Room.RoomNumber" class="form-label">@Localizer["RoomNumberLabel"]</label>
+                <input asp-for="Room.RoomNumber" class="form-control" placeholder="@Localizer["RoomNumberPlaceholder"]" />
                 <span asp-validation-for="Room.RoomNumber" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <button type="submit" class="btn btn-success">Save</button>
-                <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-success">@Localizer["SaveButton"]</button>
+                <a asp-page="Index" class="btn btn-secondary">@Localizer["CancelButton"]</a>
             </div>
         </form>
     </div>

@@ -1,12 +1,13 @@
 ﻿@page
 @model IndexModel
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Project Defense Reservation System</h1>
-    <p class="lead">A system for managing student project defense appointments</p>
+    <h1 class="display-4">@Localizer["HomePageTitle"]</h1>
+    <p class="lead">@Localizer["HomePageLead"]</p>
 
     @if (User.Identity.IsAuthenticated)
     {
@@ -14,17 +15,17 @@
             @if (User.IsInRole("Instructor"))
             {
                 <div class="alert alert-info">
-                    <h4>Instructor Panel</h4>
-                    <p>Welcome! Manage rooms, availability, and reservations.</p>
-                    <a asp-page="/Instructor/Rooms/Index" class="btn btn-primary">Go to Panel</a>
+                    <h4>@Localizer["InstructorPanel"]</h4>
+                    <p>@Localizer["InstructorWelcome"]</p>
+                    <a asp-page="/Instructor/Rooms/Index" class="btn btn-primary">@Localizer["GoToPanel"]</a>
                 </div>
             }
             else if (User.IsInRole("Student"))
             {
                 <div class="alert alert-success">
-                    <h4>Student Panel</h4>
-                    <p>Welcome! Reserve your project defense slot.</p>
-                    <a asp-page="/Student/Reservations/Index" class="btn btn-primary">View Available Slots</a>
+                    <h4>@Localizer["StudentPanel"]</h4>
+                    <p>@Localizer["StudentWelcome"]</p>
+                    <a asp-page="/Student/Reservations/Index" class="btn btn-primary">@Localizer["ViewAvailableSlots"]</a>
                 </div>
             }
         </div>
@@ -32,9 +33,9 @@
     else
     {
         <div class="mt-4">
-            <p>Please log in to access the reservation system.</p>
-            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Log In</a>
-            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">Register</a>
+            <p>@Localizer["LoginPrompt"]</p>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">@Localizer["Login"]</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">@Localizer["Register"]</a>
         </div>
     }
 </div>

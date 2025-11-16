@@ -1,16 +1,18 @@
 ﻿@page
 @model ProjectDefense.Web.Pages.Instructor.Blocks.IndexModel
+
+
 @{
-    ViewData["Title"] = "Manage Student Blocks";
+    ViewData["Title"] = Localizer["ManageBlocksTitle"];
 }
 
 <div class="row">
     <div class="col-md-12">
-        <h1>Manage Student Blocks</h1>
+        <h1>@Localizer["ManageBlocksTitle"]</h1>
         
         <p>
             <a asp-page="Create" class="btn btn-danger">
-                <i class="bi bi-ban"></i> Ban Student
+                <i class="bi bi-ban"></i> @Localizer["BanStudentButton"]
             </a>
         </p>
 
@@ -27,13 +29,13 @@
             <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th>Student</th>
-                        <th>Email</th>
-                        <th>Reason</th>
-                        <th>Ban Date</th>
-                        <th>Banned By</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>@Localizer["StudentHeader"]</th>
+                        <th>@Localizer["EmailHeader"]</th>
+                        <th>@Localizer["ReasonHeader"]</th>
+                        <th>@Localizer["BanDateHeader"]</th>
+                        <th>@Localizer["BannedByHeader"]</th>
+                        <th>@Localizer["StatusHeader"]</th>
+                        <th>@Localizer["ActionsHeader"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,11 +50,11 @@
                             <td>
                                 @if (block.IsActive)
                                 {
-                                    <span class="badge bg-danger">Active</span>
+                                    <span class="badge bg-danger">@Localizer["ActiveBadge"]</span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-secondary">Inactive</span>
+                                    <span class="badge bg-secondary">@Localizer["InactiveBadge"]</span>
                                 }
                             </td>
                             <td>
@@ -60,7 +62,7 @@
                                 {
                                     <form method="post" asp-page-handler="Unblock" asp-route-id="@block.Id" class="d-inline">
                                         <button type="submit" class="btn btn-sm btn-success">
-                                            Unblock
+                                            @Localizer["UnblockButton"]
                                         </button>
                                     </form>
                                 }
@@ -73,7 +75,7 @@
         else
         {
             <div class="alert alert-info">
-                No banned students found.
+                @Localizer["NoBlocksMessage"]
             </div>
         }
     </div>

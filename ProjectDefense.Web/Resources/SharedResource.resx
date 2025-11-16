@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Instructor Panel -->
+    <data name="InstructorPanel" xml:space="preserve">
+    <value>Panel Prowadzącego</value>
+  </data>
+
+    <!-- Student Panel -->
+    <data name="StudentPanel" xml:space="preserve">
+    <value>Panel Studenta</value>
+  </data>
+
+    <!-- Login button -->
+    <data name="Login" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+
+    <!-- Register button -->
+    <data name="Register" xml:space="preserve">
+    <value>Zarejestruj się</value>
+  </data>
+
+    <!-- Welcome messages -->
+    <data name="InstructorWelcome" xml:space="preserve">
+    <value>Witaj! Zarządzaj salami, dostępnością i rezerwacjami.</value>
+  </data>
+
+    <data name="StudentWelcome" xml:space="preserve">
+    <value>Witaj! Zarezerwuj termin obrony projektu.</value>
+  </data>
+    
+    <data name="GoToPanel" xml:space="preserve">
+  <value>Przejdź do panelu</value>
+</data>
+    <data name="ViewAvailableSlots" xml:space="preserve">
+  <value>Wyświetl dostępne terminy</value>
+</data>
+    <data name="HomePageTitle" xml:space="preserve">
+  <value>System rezerwacji projektów</value>
+</data>
+    <data name="HomePageLead" xml:space="preserve">
+  <value>System do zarządzania zapisami studentów na obronę projektów</value>
+</data>
+    <data name="LoginPrompt" xml:space="preserve">
+  <value>Proszę zalogować się, aby uzyskać dostęp do systemu rezerwacji.</value>
+</data>
+    <data name="LoginTitle" xml:space="preserve"><value>Zaloguj się</value></data>
+    <data name="UseLocalAccountLogin" xml:space="preserve"><value>Użyj lokalnego konta do logowania.</value></data>
+    <data name="EmailPlaceholder" xml:space="preserve"><value>nazwa@przyklad.com</value></data>
+    <data name="EmailLabel" xml:space="preserve"><value>Email</value></data>
+    <data name="PasswordPlaceholder" xml:space="preserve"><value>hasło</value></data>
+    <data name="PasswordLabel" xml:space="preserve"><value>Hasło</value></data>
+    <data name="RememberMeLabel" xml:space="preserve"><value>Zapamiętaj mnie?</value></data>
+    <data name="LoginButton" xml:space="preserve"><value>Zaloguj się</value></data>
+    <data name="ForgotPasswordLink" xml:space="preserve"><value>Nie pamiętasz hasła?</value></data>
+    <data name="RegisterLink" xml:space="preserve"><value>Zarejestruj nowe konto</value></data>
+    <data name="ResendConfirmationLink" xml:space="preserve"><value>Wyślij ponownie potwierdzenie e-mail</value></data>
+    <data name="UseExternalServiceLogin" xml:space="preserve"><value>Użyj innej usługi do logowania.</value></data>
+    <data name="NoExternalServices" xml:space="preserve"><value>Nie skonfigurowano żadnych zewnętrznych usług uwierzytelniania. Zobacz artykuł o konfiguracji tej aplikacji ASP.NET, aby umożliwić logowanie przez zewnętrzne usługi.</value></data>
+    <data name="LoginUsingProvider" xml:space="preserve">
+        <value>Zaloguj się przy użyciu swojego {0} konta</value>
+    </data>
+    <data name="RegisterTitle" xml:space="preserve"><value>Zarejestruj się</value></data>
+    <data name="CreateNewAccount" xml:space="preserve"><value>Utwórz nowe konto.</value></data>
+    <data name="EmailPlaceholder" xml:space="preserve"><value>nazwa@przyklad.com</value></data>
+    <data name="EmailLabel" xml:space="preserve"><value>Email</value></data>
+    <data name="FirstNamePlaceholder" xml:space="preserve"><value>Jan</value></data>
+    <data name="FirstNameLabel" xml:space="preserve"><value>Imię</value></data>
+    <data name="LastNamePlaceholder" xml:space="preserve"><value>Kowalski</value></data>
+    <data name="LastNameLabel" xml:space="preserve"><value>Nazwisko</value></data>
+    <data name="RoleLabel" xml:space="preserve"><value>Rola</value></data>
+    <data name="ChooseRoleOption" xml:space="preserve"><value>-- Wybierz rolę --</value></data>
+    <data name="StudentOption" xml:space="preserve"><value>Student</value></data>
+    <data name="InstructorOption" xml:space="preserve"><value>Prowadzący</value></data>
+    <data name="PasswordPlaceholder" xml:space="preserve"><value>hasło</value></data>
+    <data name="PasswordLabel" xml:space="preserve"><value>Hasło</value></data>
+    <data name="ConfirmPasswordPlaceholder" xml:space="preserve"><value>hasło</value></data>
+    <data name="ConfirmPasswordLabel" xml:space="preserve"><value>Potwierdź hasło</value></data>
+    <data name="RegisterButton" xml:space="preserve"><value>Zarejestruj się</value></data>
+    <data name="UseExternalServiceRegister" xml:space="preserve"><value>Użyj innej usługi do rejestracji.</value></data>
+    <data name="NoExternalServices" xml:space="preserve"><value>Nie skonfigurowano żadnych zewnętrznych usług uwierzytelniania. Zobacz artykuł o konfiguracji tej aplikacji ASP.NET, aby umożliwić logowanie przez zewnętrzne usługi.</value></data>
+    <data name="LoginUsingProvider" xml:space="preserve"><value>Zaloguj się używając konta {0}</value></data>
+    <data name="AddAvailabilityTitle" xml:space="preserve"><value>Dodaj Dostępność</value></data>
+    <data name="AddAvailabilityHeader" xml:space="preserve"><value>Dodaj nową dostępność</value></data>
+    <data name="AddAvailabilityDescription" xml:space="preserve"><value>System automatycznie wygeneruje sloty czasowe na podstawie podanych parametrów.</value></data>
+    <data name="ValidationSummaryModelOnly" xml:space="preserve"><value>Komunikaty walidacji</value></data>
+    <data name="ValidationSummaryAll" xml:space="preserve"><value>Wszystkie komunikaty walidacji</value></data>
+    <data name="RoomLabel" xml:space="preserve"><value>Sala</value></data>
+    <data name="SelectRoomOption" xml:space="preserve"><value>-- Wybierz salę --</value></data>
+    <data name="StartDateLabel" xml:space="preserve"><value>Data rozpoczęcia</value></data>
+    <data name="EndDateLabel" xml:space="preserve"><value>Data zakończenia</value></data>
+    <data name="StartTimeLabel" xml:space="preserve"><value>Godzina rozpoczęcia</value></data>
+    <data name="EndTimeLabel" xml:space="preserve"><value>Godzina zakończenia</value></data>
+    <data name="SlotDurationLabel" xml:space="preserve"><value>Czas trwania slotu (minuty)</value></data>
+    <data name="SlotDurationHint" xml:space="preserve"><value>Rekomendowane: 15–30 minut</value></data>
+    <data name="SaveGenerateButton" xml:space="preserve"><value>Zapisz i wygeneruj sloty</value></data>
+    <data name="CancelButton" xml:space="preserve"><value>Anuluj</value></data>
+    <data name="MyAvailabilitiesTitle" xml:space="preserve"><value>Moje dostępności</value></data>
+    <data name="AddAvailabilityButton" xml:space="preserve"><value>Dodaj dostępność</value></data>
+    <data name="SuccessMessage" xml:space="preserve"><value>Sukces</value></data>
+    <data name="TableHeaderRoom" xml:space="preserve"><value>Sala</value></data>
+    <data name="TableHeaderStartDate" xml:space="preserve"><value>Data rozpoczęcia</value></data>
+    <data name="TableHeaderEndDate" xml:space="preserve"><value>Data zakończenia</value></data>
+    <data name="TableHeaderTime" xml:space="preserve"><value>Godzina</value></data>
+    <data name="TableHeaderSlotDuration" xml:space="preserve"><value>Czas trwania slotu</value></data>
+    <data name="TableHeaderStatus" xml:space="preserve"><value>Status</value></data>
+    <data name="TableHeaderActions" xml:space="preserve"><value>Akcje</value></data>
+    <data name="StatusBlocked" xml:space="preserve"><value>Zablokowane</value></data>
+    <data name="StatusActive" xml:space="preserve"><value>Aktywne</value></data>
+    <data name="ConfirmBlock" xml:space="preserve"><value>Czy na pewno chcesz zablokować tę dostępność?</value></data>
+    <data name="ConfirmDelete" xml:space="preserve"><value>Czy na pewno chcesz usunąć tę dostępność? Wszystkie powiązane rezerwacje zostaną usunięte.</value></data>
+    <data name="NoAvailabilities" xml:space="preserve"><value>Nie masz jeszcze żadnych dostępności. Dodaj nową, aby rozpocząć.</value></data>
+    <data name="BlockButton" xml:space="preserve"><value>Zablokuj</value></data>
+    <data name="UnblockButton" xml:space="preserve"><value>Odblokuj</value></data>
+    <data name="DeleteButton" xml:space="preserve"><value>Usuń</value></data>
+    <data name="BanStudentTitle" xml:space="preserve"><value>Zbanuj studenta</value></data>
+    <data name="SelectStudentLabel" xml:space="preserve"><value>Student</value></data>
+    <data name="SelectStudentOption" xml:space="preserve"><value>-- Wybierz studenta --</value></data>
+    <data name="ReasonLabel" xml:space="preserve"><value>Powód bana</value></data>
+    <data name="ReasonPlaceholder" xml:space="preserve"><value>Wpisz powód zbanowania tego studenta</value></data>
+    <data name="BanButton" xml:space="preserve"><value>Zbanuj studenta</value></data>
+    <data name="CancelButton" xml:space="preserve"><value>Anuluj</value></data>
+    <data name="ManageBlocksTitle" xml:space="preserve"><value>Zarządzaj banami studentów</value></data>
+    <data name="BanStudentButton" xml:space="preserve"><value>Zbanuj studenta</value></data>
+    <data name="StudentHeader" xml:space="preserve"><value>Student</value></data>
+    <data name="EmailHeader" xml:space="preserve"><value>Email</value></data>
+    <data name="ReasonHeader" xml:space="preserve"><value>Powód</value></data>
+    <data name="BanDateHeader" xml:space="preserve"><value>Data bana</value></data>
+    <data name="BannedByHeader" xml:space="preserve"><value>Zbanuowany przez</value></data>
+    <data name="StatusHeader" xml:space="preserve"><value>Status</value></data>
+    <data name="ActionsHeader" xml:space="preserve"><value>Akcje</value></data>
+    <data name="ActiveBadge" xml:space="preserve"><value>Aktywny</value></data>
+    <data name="InactiveBadge" xml:space="preserve"><value>Nieaktywny</value></data>
+    <data name="UnblockButton" xml:space="preserve"><value>Odblokuj</value></data>
+    <data name="NoBlocksMessage" xml:space="preserve"><value>Brak zbanowanych studentów.</value></data>
+    <data name="ExportReservationsTitle" xml:space="preserve"><value>Eksport rezerwacji</value></data>
+    <data name="ExportReservationsSubtitle" xml:space="preserve"><value>Wybierz salę, zakres dat i format eksportu.</value></data>
+    <data name="RoomLabel" xml:space="preserve"><value>Sala</value></data>
+    <data name="SelectRoomOption" xml:space="preserve"><value>-- Wybierz salę --</value></data>
+    <data name="FromLabel" xml:space="preserve"><value>Od</value></data>
+    <data name="ToLabel" xml:space="preserve"><value>Do</value></data>
+    <data name="ExportFormatLabel" xml:space="preserve"><value>Format eksportu</value></data>
+    <data name="ExportTxtButton" xml:space="preserve"><value>TXT</value></data>
+    <data name="ExportExcelButton" xml:space="preserve"><value>XLSX (Excel)</value></data>
+    <data name="ExportPdfButton" xml:space="preserve"><value>PDF</value></data>
+    <data name="ManageReservationsTitle" xml:space="preserve"><value>Zarządzaj rezerwacjami</value></data>
+    <data name="AllReservationsHeading" xml:space="preserve"><value>Wszystkie rezerwacje</value></data>
+    <data name="FilterByRoomLabel" xml:space="preserve"><value>Filtruj według sali</value></data>
+    <data name="AllRoomsOption" xml:space="preserve"><value>Wszystkie sale</value></data>
+    <data name="StatusLabel" xml:space="preserve"><value>Status</value></data>
+    <data name="StatusAll" xml:space="preserve"><value>Wszystkie</value></data>
+    <data name="StatusBooked" xml:space="preserve"><value>Zajęte</value></data>
+    <data name="StatusFree" xml:space="preserve"><value>Wolne</value></data>
+    <data name="ShowPastLabel" xml:space="preserve"><value>Pokaż przeszłe</value></data>
+    <data name="ColumnId" xml:space="preserve"><value>ID</value></data>
+    <data name="ColumnRoom" xml:space="preserve"><value>Sala</value></data>
+    <data name="ColumnDate" xml:space="preserve"><value>Data</value></data>
+    <data name="ColumnHours" xml:space="preserve"><value>Godziny</value></data>
+    <data name="ColumnStudent" xml:space="preserve"><value>Student</value></data>
+    <data name="ColumnEmail" xml:space="preserve"><value>Email</value></data>
+    <data name="ColumnActions" xml:space="preserve"><value>Akcje</value></data>
+    <data name="AvailableText" xml:space="preserve"><value>Dostępne</value></data>
+    <data name="FinishedText" xml:space="preserve"><value>Zakończone</value></data>
+    <data name="CancelButton" xml:space="preserve"><value>Anuluj</value></data>
+    <data name="RescheduleButton" xml:space="preserve"><value>Przełóż</value></data>
+    <data name="DeleteButton" xml:space="preserve"><value>Usuń</value></data>
+    <data name="NoReservationsInfo" xml:space="preserve"><value>Brak rezerwacji pasujących do filtrów.</value></data>
+    <data name="RescheduleTitle" xml:space="preserve"><value>Przełóż studenta</value></data>
+    <data name="RescheduleHeading" xml:space="preserve"><value>Przełóż rezerwację studenta</value></data>
+    <data name="CurrentReservationLabel" xml:space="preserve"><value>Aktualna rezerwacja:</value></data>
+    <data name="RoomLabel" xml:space="preserve"><value>Sala</value></data>
+    <data name="DateLabel" xml:space="preserve"><value>Data</value></data>
+    <data name="TimeLabel" xml:space="preserve"><value>Godzina</value></data>
+    <data name="StudentLabel" xml:space="preserve"><value>Student</value></data>
+    <data name="SelectNewSlotLabel" xml:space="preserve"><value>Wybierz nowy slot</value></data>
+    <data name="ChooseSlotOption" xml:space="preserve"><value>-- Wybierz slot --</value></data>
+    <data name="RescheduleButton" xml:space="preserve"><value>Przełóż</value></data>
+    <data name="BackButton" xml:space="preserve"><value>Powrót</value></data>
+    <data name="AddRoomTitle" xml:space="preserve"><value>Dodaj salę</value></data>
+    <data name="AddRoomHeading" xml:space="preserve"><value>Dodaj nową salę</value></data>
+    <data name="RoomNameLabel" xml:space="preserve"><value>Nazwa sali</value></data>
+    <data name="RoomNamePlaceholder" xml:space="preserve"><value>np. Laboratorium A</value></data>
+    <data name="RoomNumberLabel" xml:space="preserve"><value>Numer sali</value></data>
+    <data name="RoomNumberPlaceholder" xml:space="preserve"><value>np. 101</value></data>
+    <data name="SaveButton" xml:space="preserve"><value>Zapisz</value></data>
+    <data name="CancelButton" xml:space="preserve"><value>Anuluj</value></data>
+    <data name="EditRoomTitle" xml:space="preserve"><value>Edytuj salę</value></data>
+    <data name="EditRoomHeading" xml:space="preserve"><value>Edytuj salę</value></data>
+    <data name="SaveChangesButton" xml:space="preserve"><value>Zapisz zmiany</value></data>
+    <data name="CancelButton" xml:space="preserve"><value>Anuluj</value></data>
+    <data name="RoomNameLabel" xml:space="preserve"><value>Nazwa sali</value></data>
+    <data name="RoomNumberLabel" xml:space="preserve"><value>Numer sali</value></data>
+    <data name="ManageRoomsTitle" xml:space="preserve"><value>Zarządzaj salami</value></data>
+    <data name="ManageRoomsHeading" xml:space="preserve"><value>Zarządzaj salami</value></data>
+    <data name="AddNewRoomButton" xml:space="preserve"><value>Dodaj nową salę</value></data>
+    <data name="EditButton" xml:space="preserve"><value>Edytuj</value></data>
+    <data name="DeleteButton" xml:space="preserve"><value>Usuń</value></data>
+    <data name="DeleteConfirmMessage" xml:space="preserve"><value>Czy na pewno chcesz usunąć tę salę?</value></data>
+    <data name="IdColumn" xml:space="preserve"><value>ID</value></data>
+    <data name="NameColumn" xml:space="preserve"><value>Nazwa</value></data>
+    <data name="NumberColumn" xml:space="preserve"><value>Numer</value></data>
+    <data name="NoRoomsMessage" xml:space="preserve"><value>Brak dostępnych sal. Dodaj nową salę, aby rozpocząć.</value></data>
+    <data name="ProjectDefenseTitle" xml:space="preserve"><value>Obrona Projektu</value></data>
+    <data name="InstructorPanel" xml:space="preserve"><value>Panel Instruktora</value></data>
+    <data name="RoomsMenu" xml:space="preserve"><value>Sale</value></data>
+    <data name="AvailabilitiesMenu" xml:space="preserve"><value>Dostępności</value></data>
+    <data name="ReservationsMenu" xml:space="preserve"><value>Rezerwacje</value></data>
+    <data name="BlocksMenu" xml:space="preserve"><value>Blokady i bany</value></data>
+    <data name="ExportMenu" xml:space="preserve"><value>Eksport</value></data>
+    <data name="MyReservationsMenu" xml:space="preserve"><value>Moje rezerwacje</value></data>
+    <data name="PolishOption" xml:space="preserve"><value>Polski</value></data>
+    <data name="EnglishOption" xml:space="preserve"><value>Angielski</value></data>
+    <data name="LogOut" xml:space="preserve"><value>Wyloguj się</value></data>
+    <data name="WelcomeUser" xml:space="preserve"><value>Witaj, {0}</value></data>
+    <data name="LogIn" xml:space="preserve"><value>Zaloguj się</value></data>
+    <data name="Register" xml:space="preserve"><value>Zarejestruj się</value></data>
+    <data name="ChangeReservationTitle" xml:space="preserve"><value>Zmień termin rezerwacji</value></data>
+    <data name="CurrentReservation" xml:space="preserve"><value>Aktualna rezerwacja:</value></data>
+    <data name="Room" xml:space="preserve"><value>Pokój</value></data>
+    <data name="Date" xml:space="preserve"><value>Data</value></data>
+    <data name="Time" xml:space="preserve"><value>Godzina</value></data>
+    <data name="TimeColumn" xml:space="preserve"><value>Godzina</value></data>
+    <data name="InstructorColumn" xml:space="preserve"><value>Instruktor</value></data>
+    <data name="ActionColumn" xml:space="preserve"><value>Akcja</value></data>
+    <data name="SelectTimeButton" xml:space="preserve"><value>Wybierz ten termin</value></data>
+    <data name="NoAvailableSlots" xml:space="preserve"><value>Brak dostępnych wolnych terminów w tym pokoju dla wybranego dnia.</value></data>
+    <data name="Back" xml:space="preserve"><value>Powrót</value></data>
+    <data name="NewReservationTitle" xml:space="preserve"><value>Nowa rezerwacja</value></data>
+    <data name="SelectReservationTime" xml:space="preserve"><value>Wybierz termin rezerwacji</value></data>
+    <data name="ErrorMessage" xml:space="preserve"><value>Błąd</value></data>
+    <data name="SuccessMessage" xml:space="preserve"><value>Sukces</value></data>
+    <data name="RoomLabel" xml:space="preserve"><value>Pokój</value></data>
+    <data name="SelectRoomOption" xml:space="preserve"><value>-- Wybierz pokój --</value></data>
+    <data name="DateLabel" xml:space="preserve"><value>Data</value></data>
+    <data name="TimeSlotLabel" xml:space="preserve"><value>Godzina</value></data>
+    <data name="SelectTimeSlotOption" xml:space="preserve"><value>-- Wybierz godzinę --</value></data>
+    <data name="BookButton" xml:space="preserve"><value>Zarezerwuj</value></data>
+    <data name="CancelButton" xml:space="preserve"><value>Anuluj</value></data>
+    <data name="MyPreviousReservationsTitle" xml:space="preserve"><value>Moje poprzednie rezerwacje</value></data>
+    <data name="RoomLabel" xml:space="preserve"><value>Pokój</value></data>
+    <data name="DateLabel" xml:space="preserve"><value>Data</value></data>
+    <data name="TimeLabel" xml:space="preserve"><value>Godzina</value></data>
+    <data name="StatusLabel" xml:space="preserve"><value>Status</value></data>
+    <data name="CompletedLabel" xml:space="preserve"><value>Zrealizowana</value></data>
+    <data name="CancelledByUserLabel" xml:space="preserve"><value>Anulowana przez użytkownika</value></data>
+    <data name="NoPreviousReservations" xml:space="preserve"><value>Nie znaleziono poprzednich rezerwacji.</value></data>
+    <data name="BackButton" xml:space="preserve"><value>Powrót</value></data>
+    <data name="MyReservationsTitle" xml:space="preserve"><value>Moje Rezerwacje</value></data>
+    <data name="ViewReservationHistory" xml:space="preserve"><value>Wyświetl historię rezerwacji</value></data>
+    <data name="YourCurrentReservation" xml:space="preserve"><value>Twoja bieżąca rezerwacja</value></data>
+    <data name="DateLabel" xml:space="preserve"><value>Data:</value></data>
+    <data name="TimeLabel" xml:space="preserve"><value>Godzina:</value></data>
+    <data name="InstructorLabel" xml:space="preserve"><value>Instruktor:</value></data>
+    <data name="CancelReservationButton" xml:space="preserve"><value>Anuluj rezerwację</value></data>
+    <data name="ChangeDateButton" xml:space="preserve"><value>Zmień datę</value></data>
+    <data name="NoActiveReservation" xml:space="preserve"><value>Nie masz aktywnej rezerwacji. Wybierz dostępny termin poniżej.</value></data>
+    <data name="AvailableSlotsTitle" xml:space="preserve"><value>Dostępne terminy</value></data>
+    <data name="AvailableSlotsHint" xml:space="preserve"><value>Kliknij &quot;Rezerwuj&quot;, aby zarezerwować wybrany termin.</value></data>
+    <data name="DateFormat" xml:space="preserve"><value>dd.MM.yyyy</value></data>
+    <data name="TimeFormat" xml:space="preserve"><value>HH:mm</value></data>
+    <data name="ReserveButton" xml:space="preserve"><value>Rezerwuj</value></data>
+    <data name="NoAvailableSlots" xml:space="preserve"><value>Brak dostępnych terminów w tym momencie. Sprawdź później.</value></data>
+
+</root>
