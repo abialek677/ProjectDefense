@@ -81,11 +81,38 @@ namespace ProjectDefense.Web.Pages.Instructor.Reservations
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            var reservation = await _context.Reservations.FindAsync(id);
+            var reservation = await _context.Reservations
+                .Include(r => r.InstructorAvailability)
+                .ThenInclude(a => a.Reservations)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
             if (reservation == null)
                 return NotFound();
 
+            var availability = reservation.InstructorAvailability;
+
             _context.Reservations.Remove(reservation);
+            await _context.SaveChangesAsync();
+            
+            var activeReservations = availability.Reservations
+                .Where(r => r.IsActive && r.Id != id)
+                .OrderBy(r => r.StartTime)
+                .ToList();
+
+            if (activeReservations.Any())
+            {
+                availability.StartDate = activeReservations.First().StartTime.Date;
+                availability.StartHour = activeReservations.First().StartTime.TimeOfDay;
+
+                availability.EndDate = activeReservations.Last().EndTime.Date;
+                availability.EndHour = activeReservations.Last().EndTime.TimeOfDay;
+            }
+            else
+            {
+                _context.InstructorAvailabilities.Remove(availability);
+                await _context.SaveChangesAsync();
+            }
+
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "The slot was permanently deleted.";
