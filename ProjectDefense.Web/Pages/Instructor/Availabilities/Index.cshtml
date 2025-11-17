@@ -41,9 +41,17 @@
                 {
                     <tr class="@(availability.IsBlocked ? "table-danger" : "")">
                         <td>@availability.Room.Name (@availability.Room.RoomNumber)</td>
-                        <td>@availability.StartDate.ToString("d")</td>
-                        <td>@availability.EndDate.ToString("d")</td>
-                        <td>@availability.StartHour.ToString("t") - @availability.EndHour.ToString("t")</td>
+                        <td>@availability.StartDate.ToString("d", System.Globalization.CultureInfo.CurrentCulture)</td>
+                        <td>@availability.EndDate.ToString("d", System.Globalization.CultureInfo.CurrentCulture)</td>
+                        <td>
+                            @{
+                                var startTime = DateTime.Today.Add(availability.StartHour);
+                                var endTime = DateTime.Today.Add(availability.EndHour);
+                            }
+                            @startTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
+                            - 
+                            @endTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)
+                        </td>
                         <td>@availability.SlotDurationMinutes min</td>
                         <td>
                             @if (availability.IsBlocked)

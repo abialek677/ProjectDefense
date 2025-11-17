@@ -42,11 +42,12 @@
                 </ul>
                 <partial name="_LoginPartial" />
                 <div class="ms-3">
-                    <form method="get" class="d-inline">
+                    <form method="post" asp-page="/SetLanguage" class="d-inline">
                         <select name="culture" onchange="this.form.submit()" class="form-select form-select-sm">
                             <option value="pl-PL" selected="@(System.Globalization.CultureInfo.CurrentCulture.Name == "pl-PL")">@Localizer["PolishOption"]</option>
                             <option value="en-US" selected="@(System.Globalization.CultureInfo.CurrentCulture.Name == "en-US")">@Localizer["EnglishOption"]</option>
                         </select>
+                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
                     </form>
                 </div>
             </div>

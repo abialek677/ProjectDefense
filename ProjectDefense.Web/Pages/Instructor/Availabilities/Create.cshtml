@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = Localizer["AddAvailabilityTitle"];
+    var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
 }
 
 <div class="row">
@@ -27,13 +28,13 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label asp-for="Availability.StartDate" class="form-label">@Localizer["StartDateLabel"]</label>
-                    <input asp-for="Availability.StartDate" type="date" class="form-control" />
+                    <input asp-for="Availability.StartDate" type="text" class="form-control datepicker" />
                     <span asp-validation-for="Availability.StartDate" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label asp-for="Availability.EndDate" class="form-label">@Localizer["EndDateLabel"]</label>
-                    <input asp-for="Availability.EndDate" type="date" class="form-control" />
+                    <input asp-for="Availability.EndDate" type="text" class="form-control datepicker" />
                     <span asp-validation-for="Availability.EndDate" class="text-danger"></span>
                 </div>
             </div>
@@ -42,13 +43,13 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label asp-for="Availability.StartHour" class="form-label">@Localizer["StartTimeLabel"]</label>
-                    <input asp-for="Availability.StartHour" type="time" class="form-control" />
+                    <input asp-for="Availability.StartHour" type="text" class="form-control timepicker" />
                     <span asp-validation-for="Availability.StartHour" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label asp-for="Availability.EndHour" class="form-label">@Localizer["EndTimeLabel"]</label>
-                    <input asp-for="Availability.EndHour" type="time" class="form-control" />
+                    <input asp-for="Availability.EndHour" type="text" class="form-control timepicker" />
                     <span asp-validation-for="Availability.EndHour" class="text-danger"></span>
                 </div>
             </div>
@@ -72,4 +73,33 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pl.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var currentCulture = '@currentCulture';
+            var locale = currentCulture === 'pl-PL' ? flatpickr.l10ns.pl : flatpickr.l10ns.default;
+
+            // Datepickers
+            flatpickr(".datepicker", {
+                altInput: true,
+                altFormat: currentCulture === 'pl-PL' ? "d.m.Y" : "m/d/Y",
+                dateFormat: "Y-m-d",
+                locale: locale
+            });
+
+            // Timepickers
+            flatpickr(".timepicker", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                altInput: true,
+                altFormat: currentCulture === 'pl-PL' ? "H:i" : "h:i K",
+                time_24hr: currentCulture === 'pl-PL'
+            });
+        });
+    </script>
 }

@@ -78,8 +78,15 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.DefaultRequestCulture = new RequestCulture("pl-PL");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
-    options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+
+    options.RequestCultureProviders = new IRequestCultureProvider[]
+    {
+        new CookieRequestCultureProvider(),
+        new QueryStringRequestCultureProvider(),
+        new AcceptLanguageHeaderRequestCultureProvider()
+    };
 });
+
 
 // Authorization policies
 builder.Services.AddAuthorization(options =>
@@ -151,7 +158,6 @@ app.UseRequestLocalization(locOptions.Value);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseRequestLocalization();
 app.UseAuthentication();
 app.UseAuthorization();
 
