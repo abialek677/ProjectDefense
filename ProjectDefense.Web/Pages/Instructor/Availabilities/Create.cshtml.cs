@@ -58,16 +58,34 @@ namespace ProjectDefense.Web.Pages.Instructor.Availabilities
                 return Page();
             }
 
-            // Check conflicts
-            var conflictExists = await _context.InstructorAvailabilities
+            // Instructor conflict check
+            var instructorConflict = await _context.InstructorAvailabilities
+                .AnyAsync(d => d.InstructorId == Availability.InstructorId &&
+                               d.StartDate <= Availability.EndDate &&
+                               d.EndDate >= Availability.StartDate &&
+                               Availability.StartHour < d.EndHour &&
+                               Availability.EndHour > d.StartHour &&
+                               !d.IsBlocked);
+
+            if (instructorConflict)
+            {
+                ModelState.AddModelError("", "You already have another reservation or blocked time during this period.");
+                await LoadRoomSelectListAsync();
+                return Page();
+            }
+
+            // Room conflict check
+            var roomConflict = await _context.InstructorAvailabilities
                 .AnyAsync(d => d.RoomId == Availability.RoomId &&
                                d.StartDate <= Availability.EndDate &&
                                d.EndDate >= Availability.StartDate &&
+                               Availability.StartHour < d.EndHour &&
+                               Availability.EndHour > d.StartHour &&
                                !d.IsBlocked);
 
-            if (conflictExists)
+            if (roomConflict)
             {
-                ModelState.AddModelError("", "There is a conflicting availability for this room in the selected period.");
+                ModelState.AddModelError("", "The selected room is already booked during this period.");
                 await LoadRoomSelectListAsync();
                 return Page();
             }

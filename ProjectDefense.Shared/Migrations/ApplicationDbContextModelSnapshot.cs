@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProjectDefense.Shared.Data;
 
 #nullable disable
 
-namespace ProjectDefense.Web.Migrations
+namespace ProjectDefense.Shared.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251101231221_InitialCreate")]
-    partial class InitialCreate
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,7 +233,7 @@ namespace ProjectDefense.Web.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.BlokadaStudenta", b =>
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.InstructorAvailability", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -244,76 +241,40 @@ namespace ProjectDefense.Web.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BlokowalProwadzacyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DataBlokady")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Powod")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("StudentId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlokowalProwadzacyId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("BlokadyStudentow");
-                });
-
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.DostepnoscProwadzacego", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CzasTrwaniaSlotuWMin")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DataKoncowa")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DataPoczatkowa")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<TimeSpan>("GodzinaRozpoczecia")
+                    b.Property<TimeSpan>("EndHour")
                         .HasColumnType("interval");
 
-                    b.Property<TimeSpan>("GodzinaZakonczenia")
-                        .HasColumnType("interval");
+                    b.Property<string>("InstructorId")
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("ProwadzacyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("SalaId")
+                    b.Property<int>("RoomId")
                         .HasColumnType("integer");
+
+                    b.Property<int>("SlotDurationMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<TimeSpan>("StartHour")
+                        .HasColumnType("interval");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProwadzacyId");
+                    b.HasIndex("InstructorId");
 
-                    b.HasIndex("SalaId", "DataPoczatkowa", "DataKoncowa");
+                    b.HasIndex("RoomId", "StartDate", "EndDate");
 
-                    b.ToTable("DostepnosciProwadzacych");
+                    b.ToTable("InstructorAvailabilities");
                 });
 
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.Rezerwacja", b =>
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.Reservation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -321,36 +282,36 @@ namespace ProjectDefense.Web.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CzasRozpoczecia")
+                    b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("CzasZakonczenia")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DataRezerwacji")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("DostepnoscProwadzacegoId")
+                    b.Property<int>("InstructorAvailabilityId")
                         .HasColumnType("integer");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ReservationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("StudentId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CzasRozpoczecia");
+                    b.HasIndex("InstructorAvailabilityId");
 
-                    b.HasIndex("DostepnoscProwadzacegoId");
+                    b.HasIndex("StartTime");
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Rezerwacje");
+                    b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.Sala", b =>
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.Room", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -361,19 +322,54 @@ namespace ProjectDefense.Web.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Nazwa")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("NumerSali")
+                    b.Property<string>("RoomNumber")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sale");
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.StudentBlock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BlockDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("BlockReason")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("BlockingInstructorId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlockingInstructorId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentBlocks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -427,77 +423,76 @@ namespace ProjectDefense.Web.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.BlokadaStudenta", b =>
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.InstructorAvailability", b =>
                 {
-                    b.HasOne("ProjectDefense.Shared.Entities.ApplicationUser", "BlokowalProwadzacy")
-                        .WithMany()
-                        .HasForeignKey("BlokowalProwadzacyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("ProjectDefense.Shared.Entities.ApplicationUser", "Instructor")
+                        .WithMany("Availabilities")
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ProjectDefense.Shared.Entities.Room", "Room")
+                        .WithMany("Availabilities")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Instructor");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.Reservation", b =>
+                {
+                    b.HasOne("ProjectDefense.Shared.Entities.InstructorAvailability", "InstructorAvailability")
+                        .WithMany("Reservations")
+                        .HasForeignKey("InstructorAvailabilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjectDefense.Shared.Entities.ApplicationUser", "Student")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
-                    b.Navigation("BlokowalProwadzacy");
+                    b.Navigation("InstructorAvailability");
 
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.DostepnoscProwadzacego", b =>
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.StudentBlock", b =>
                 {
-                    b.HasOne("ProjectDefense.Shared.Entities.ApplicationUser", "Prowadzacy")
-                        .WithMany("Dostepnosci")
-                        .HasForeignKey("ProwadzacyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectDefense.Shared.Entities.Sala", "Sala")
-                        .WithMany("Dostepnosci")
-                        .HasForeignKey("SalaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Prowadzacy");
-
-                    b.Navigation("Sala");
-                });
-
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.Rezerwacja", b =>
-                {
-                    b.HasOne("ProjectDefense.Shared.Entities.DostepnoscProwadzacego", "DostepnoscProwadzacego")
-                        .WithMany("Rezerwacje")
-                        .HasForeignKey("DostepnoscProwadzacegoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("ProjectDefense.Shared.Entities.ApplicationUser", "BlockingInstructor")
+                        .WithMany()
+                        .HasForeignKey("BlockingInstructorId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ProjectDefense.Shared.Entities.ApplicationUser", "Student")
-                        .WithMany("Rezerwacje")
+                        .WithMany()
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("DostepnoscProwadzacego");
+                    b.Navigation("BlockingInstructor");
 
                     b.Navigation("Student");
                 });
 
             modelBuilder.Entity("ProjectDefense.Shared.Entities.ApplicationUser", b =>
                 {
-                    b.Navigation("Dostepnosci");
+                    b.Navigation("Availabilities");
 
-                    b.Navigation("Rezerwacje");
+                    b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.DostepnoscProwadzacego", b =>
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.InstructorAvailability", b =>
                 {
-                    b.Navigation("Rezerwacje");
+                    b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("ProjectDefense.Shared.Entities.Sala", b =>
+            modelBuilder.Entity("ProjectDefense.Shared.Entities.Room", b =>
                 {
-                    b.Navigation("Dostepnosci");
+                    b.Navigation("Availabilities");
                 });
 #pragma warning restore 612, 618
         }

@@ -139,6 +139,7 @@ namespace ProjectDefense.Web.Areas.Identity.Pages.Account
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //TODO
                     user.EmailConfirmed = true;
                     await _userManager.UpdateAsync(user);
                     await _userManager.AddToRoleAsync(user, Input.Role);
@@ -149,6 +150,7 @@ namespace ProjectDefense.Web.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
+                    //TODO
                     //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                     //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 

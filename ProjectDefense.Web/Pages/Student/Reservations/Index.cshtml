@@ -75,8 +75,8 @@
                                 </div>
                                 <div class="card-body">
                                     <p class="card-text">
-                                        <strong>@Localizer["DateLabel"]</strong> @slot.StartTime.ToString(Localizer["DateFormat"])<br />
-                                        <strong>@Localizer["TimeLabel"]</strong> @slot.StartTime.ToString(Localizer["TimeFormat"]) - @slot.EndTime.ToString(Localizer["TimeFormat"])<br />
+                                        <strong>@Localizer["DateLabel"]</strong> @slot.StartTime.ToString("d", System.Globalization.CultureInfo.CurrentCulture)<br />
+                                        <strong>@Localizer["TimeLabel"]</strong> @slot.StartTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture) - @slot.EndTime.ToString("t", System.Globalization.CultureInfo.CurrentCulture)<br />
                                         <strong>@Localizer["InstructorLabel"]</strong> @slot.InstructorAvailability.Instructor.FirstName @slot.InstructorAvailability.Instructor.LastName
                                     </p>
                                     <form method="post" asp-page-handler="Book" asp-route-slotId="@slot.Id">

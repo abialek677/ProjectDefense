@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ProjectDefense.Web.Migrations
+namespace ProjectDefense.Shared.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateEnglish : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,18 +55,18 @@ namespace ProjectDefense.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sale",
+                name: "Rooms",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nazwa = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    NumerSali = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    RoomNumber = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sale", x => x.Id);
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,28 +176,28 @@ namespace ProjectDefense.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BlokadyStudentow",
+                name: "StudentBlocks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     StudentId = table.Column<string>(type: "text", nullable: false),
-                    Powod = table.Column<string>(type: "text", nullable: false),
-                    DataBlokady = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    BlokowalProwadzacyId = table.Column<string>(type: "text", nullable: false),
+                    BlockReason = table.Column<string>(type: "text", nullable: false),
+                    BlockDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    BlockingInstructorId = table.Column<string>(type: "text", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BlokadyStudentow", x => x.Id);
+                    table.PrimaryKey("PK_StudentBlocks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BlokadyStudentow_AspNetUsers_BlokowalProwadzacyId",
-                        column: x => x.BlokowalProwadzacyId,
+                        name: "FK_StudentBlocks_AspNetUsers_BlockingInstructorId",
+                        column: x => x.BlockingInstructorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BlokadyStudentow_AspNetUsers_StudentId",
+                        name: "FK_StudentBlocks_AspNetUsers_StudentId",
                         column: x => x.StudentId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -205,63 +205,63 @@ namespace ProjectDefense.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DostepnosciProwadzacych",
+                name: "InstructorAvailabilities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProwadzacyId = table.Column<string>(type: "text", nullable: false),
-                    SalaId = table.Column<int>(type: "integer", nullable: false),
-                    DataPoczatkowa = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DataKoncowa = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    GodzinaRozpoczecia = table.Column<TimeSpan>(type: "interval", nullable: false),
-                    GodzinaZakonczenia = table.Column<TimeSpan>(type: "interval", nullable: false),
-                    CzasTrwaniaSlotuWMin = table.Column<int>(type: "integer", nullable: false),
+                    InstructorId = table.Column<string>(type: "text", nullable: true),
+                    RoomId = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    StartHour = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    EndHour = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    SlotDurationMinutes = table.Column<int>(type: "integer", nullable: false),
                     IsBlocked = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DostepnosciProwadzacych", x => x.Id);
+                    table.PrimaryKey("PK_InstructorAvailabilities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DostepnosciProwadzacych_AspNetUsers_ProwadzacyId",
-                        column: x => x.ProwadzacyId,
+                        name: "FK_InstructorAvailabilities_AspNetUsers_InstructorId",
+                        column: x => x.InstructorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DostepnosciProwadzacych_Sale_SalaId",
-                        column: x => x.SalaId,
-                        principalTable: "Sale",
+                        name: "FK_InstructorAvailabilities_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rezerwacje",
+                name: "Reservations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DostepnoscProwadzacegoId = table.Column<int>(type: "integer", nullable: false),
-                    CzasRozpoczecia = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CzasZakonczenia = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    InstructorAvailabilityId = table.Column<int>(type: "integer", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     StudentId = table.Column<string>(type: "text", nullable: true),
-                    DataRezerwacji = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ReservationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rezerwacje", x => x.Id);
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rezerwacje_AspNetUsers_StudentId",
+                        name: "FK_Reservations_AspNetUsers_StudentId",
                         column: x => x.StudentId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "FK_Rezerwacje_DostepnosciProwadzacych_DostepnoscProwadzacegoId",
-                        column: x => x.DostepnoscProwadzacegoId,
-                        principalTable: "DostepnosciProwadzacych",
+                        name: "FK_Reservations_InstructorAvailabilities_InstructorAvailabilit~",
+                        column: x => x.InstructorAvailabilityId,
+                        principalTable: "InstructorAvailabilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -304,38 +304,38 @@ namespace ProjectDefense.Web.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlokadyStudentow_BlokowalProwadzacyId",
-                table: "BlokadyStudentow",
-                column: "BlokowalProwadzacyId");
+                name: "IX_InstructorAvailabilities_InstructorId",
+                table: "InstructorAvailabilities",
+                column: "InstructorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlokadyStudentow_StudentId",
-                table: "BlokadyStudentow",
+                name: "IX_InstructorAvailabilities_RoomId_StartDate_EndDate",
+                table: "InstructorAvailabilities",
+                columns: new[] { "RoomId", "StartDate", "EndDate" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_InstructorAvailabilityId",
+                table: "Reservations",
+                column: "InstructorAvailabilityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_StartTime",
+                table: "Reservations",
+                column: "StartTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_StudentId",
+                table: "Reservations",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DostepnosciProwadzacych_ProwadzacyId",
-                table: "DostepnosciProwadzacych",
-                column: "ProwadzacyId");
+                name: "IX_StudentBlocks_BlockingInstructorId",
+                table: "StudentBlocks",
+                column: "BlockingInstructorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DostepnosciProwadzacych_SalaId_DataPoczatkowa_DataKoncowa",
-                table: "DostepnosciProwadzacych",
-                columns: new[] { "SalaId", "DataPoczatkowa", "DataKoncowa" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rezerwacje_CzasRozpoczecia",
-                table: "Rezerwacje",
-                column: "CzasRozpoczecia");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rezerwacje_DostepnoscProwadzacegoId",
-                table: "Rezerwacje",
-                column: "DostepnoscProwadzacegoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rezerwacje_StudentId",
-                table: "Rezerwacje",
+                name: "IX_StudentBlocks_StudentId",
+                table: "StudentBlocks",
                 column: "StudentId");
         }
 
@@ -358,22 +358,22 @@ namespace ProjectDefense.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BlokadyStudentow");
+                name: "Reservations");
 
             migrationBuilder.DropTable(
-                name: "Rezerwacje");
+                name: "StudentBlocks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "DostepnosciProwadzacych");
+                name: "InstructorAvailabilities");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Sale");
+                name: "Rooms");
         }
     }
 }

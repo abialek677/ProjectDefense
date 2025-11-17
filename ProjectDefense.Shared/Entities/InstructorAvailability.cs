@@ -24,7 +24,7 @@ public class InstructorAvailability
     public TimeSpan EndHour { get; set; }
         
     [Required]
-    [Range(5, 120, ErrorMessage = "Czas trwania slotu musi być między 5 a 120 minutami")]
+    [Range(5, 120, ErrorMessage = "Time slot has to be between 5 and 120 minutes")]
     public int SlotDurationMinutes { get; set; }
         
     public bool IsBlocked { get; set; } = false;

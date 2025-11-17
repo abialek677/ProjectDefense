@@ -131,7 +131,7 @@
     <data name="StartTimeLabel" xml:space="preserve"><value>Start Time</value></data>
     <data name="EndTimeLabel" xml:space="preserve"><value>End Time</value></data>
     <data name="SlotDurationLabel" xml:space="preserve"><value>Slot Duration (minutes)</value></data>
-    <data name="SlotDurationHint" xml:space="preserve"><value>Recommended: 15–30 minutes</value></data>
+    <data name="SlotDurationHint" xml:space="preserve"><value>5 - 120 minutes</value></data>
     <data name="SaveGenerateButton" xml:space="preserve"><value>Save and Generate Slots</value></data>
     <data name="CancelButton" xml:space="preserve"><value>Cancel</value></data>
     <data name="MyAvailabilitiesTitle" xml:space="preserve"><value>My Availabilities</value></data>
@@ -299,5 +299,10 @@
     <data name="TimeFormat" xml:space="preserve"><value>HH:mm</value></data>
     <data name="ReserveButton" xml:space="preserve"><value>Reserve</value></data>
     <data name="NoAvailableSlots" xml:space="preserve"><value>No available slots at the moment. Please check again later.</value></data>
-
+    <data name="ActionsColumn" xml:space="preserve">
+      <value>Actions</value>
+    </data>
+    <data name="ShowOnlyMyReservations" xml:space="preserve">
+      <value>Show only my reservations</value>
+    </data>
 </root>

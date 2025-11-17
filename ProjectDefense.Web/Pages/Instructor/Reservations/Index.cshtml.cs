@@ -28,9 +28,14 @@ namespace ProjectDefense.Web.Pages.Instructor.Reservations
 
         [BindProperty(SupportsGet = true)]
         public bool ShowPast { get; set; }
+        
+        [BindProperty(SupportsGet = true)]
+        public bool ShowMine { get; set; }
 
         public async Task OnGetAsync()
         {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            
             Rooms = await _context.Rooms
                 .Where(r => r.IsActive)
                 .OrderBy(r => r.RoomNumber)
@@ -53,6 +58,9 @@ namespace ProjectDefense.Web.Pages.Instructor.Reservations
 
             if (!ShowPast)
                 query = query.Where(r => r.EndTime > DateTime.UtcNow);
+            
+            if (ShowMine)
+                query = query.Where(r => r.InstructorAvailability.InstructorId == userId);
 
             Reservations = await query.OrderBy(r => r.StartTime).ToListAsync();
         }
