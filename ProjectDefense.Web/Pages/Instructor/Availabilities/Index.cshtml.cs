@@ -39,8 +39,7 @@ namespace ProjectDefense.Web.Pages.Instructor.Availabilities
                 return NotFound();
 
             availability.IsBlocked = true;
-
-            // Cancel all reservations in this period
+            
             var reservations = await _context.Reservations
                 .Where(r => r.InstructorAvailabilityId == id && r.StudentId != null)
                 .ToListAsync();

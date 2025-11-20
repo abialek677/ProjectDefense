@@ -46,8 +46,7 @@ namespace ProjectDefense.Web.Pages.Instructor.Blocks
                 await LoadStudentsSelectListAsync();
                 return Page();
             }
-
-            // Check if student is already banned
+            
             var alreadyBanned = await _context.StudentBlocks
                 .AnyAsync(b => b.StudentId == StudentId && b.IsActive);
 
@@ -70,8 +69,7 @@ namespace ProjectDefense.Web.Pages.Instructor.Blocks
             };
 
             _context.StudentBlocks.Add(block);
-
-            // Cancel all future reservations of the student
+            
             var reservations = await _context.Reservations
                 .Where(r => r.StudentId == StudentId && r.IsActive && r.StartTime > DateTime.UtcNow)
                 .ToListAsync();

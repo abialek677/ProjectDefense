@@ -42,8 +42,7 @@ namespace ProjectDefense.Web.Pages.Student.Reservations
                     .ToListAsync(),
                 "Id", "Name"
             );
-
-            // Initially, SlotSelectList can be empty.
+            
             SlotSelectList = new SelectList(new List<SelectListItem>(), "Value", "Text");
             return Page();
         }
@@ -91,8 +90,7 @@ namespace ProjectDefense.Web.Pages.Student.Reservations
                 SlotSelectList = new SelectList(new List<SelectListItem>(), "Value", "Text");
                 return Page();
             }
-
-            // Check if the student already has an active reservation
+            
             var alreadyReserved = await _context.Reservations
                 .AnyAsync(r => r.StudentId == user.Id && r.IsActive);
 

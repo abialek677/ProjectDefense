@@ -38,8 +38,7 @@ namespace ProjectDefense.Web.Pages.Student.Reservations
                 MyReservation = null;
                 return;
             }
-
-            // Load current student reservation
+            
             MyReservation = await _context.Reservations
                 .Include(r => r.InstructorAvailability)
                     .ThenInclude(a => a.Room)
@@ -49,8 +48,7 @@ namespace ProjectDefense.Web.Pages.Student.Reservations
                     r.StudentId == user.Id &&
                     r.IsActive &&
                     r.StartTime > now);
-
-            // If no active reservation, show available slots
+            
             if (MyReservation == null)
             {
                 FreeReservations = await _context.Reservations
@@ -72,8 +70,7 @@ namespace ProjectDefense.Web.Pages.Student.Reservations
         public async Task<IActionResult> OnPostBookAsync(int slotId)
         {
             var user = await _userManager.GetUserAsync(User);
-
-            // Check if the student is blocked
+            
             var isBanned = await _context.StudentBlocks
                 .AnyAsync(b => b.StudentId == user.Id && b.IsActive);
 
@@ -82,8 +79,7 @@ namespace ProjectDefense.Web.Pages.Student.Reservations
                 ModelState.AddModelError("", "Your account is blocked.");
                 return Page();
             }
-
-            // Check if the student already has a reservation
+            
             var hasReservation = await _context.Reservations
                 .AnyAsync(r =>
                     r.StudentId == user.Id &&

@@ -10,7 +10,7 @@ namespace ProjectDefense.ConsoleApp
             BaseAddress = new Uri("http://localhost:5291/")
         };
 
-        private static string? studentId; // zapamiętane ID użytkownika
+        private static string? studentId;
 
         static async Task Main(string[] args)
         {

@@ -75,12 +75,10 @@ namespace ProjectDefense.Web.Pages.Student.Reservations
                 TempData["ErrorMessage"] = "The selected slot is already taken!";
                 return RedirectToPage();
             }
-
-            // Detach the old slot
+            
             currentReservation.StudentId = null;
             currentReservation.ReservationDate = null;
-
-            // Assign the new one
+            
             newSlot.StudentId = user.Id;
             newSlot.ReservationDate = DateTime.UtcNow;
 

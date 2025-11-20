@@ -36,7 +36,6 @@ namespace ProjectDefense.Web.Services.Export
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Rezerwacje");
             
-            // Nagłówki
             worksheet.Cell(1, 1).Value = "Sala";
             worksheet.Cell(1, 2).Value = nazwaSali;
             worksheet.Cell(1, 1).Style.Font.Bold = true;
@@ -47,7 +46,6 @@ namespace ProjectDefense.Web.Services.Export
             worksheet.Cell(3, 4).Value = "Student";
             worksheet.Cell(3, 5).Value = "Email";
             
-            // Stylowanie nagłówków
             var headerRange = worksheet.Range(3, 1, 3, 5);
             headerRange.Style.Font.Bold = true;
             headerRange.Style.Fill.BackgroundColor = XLColor.LightBlue;

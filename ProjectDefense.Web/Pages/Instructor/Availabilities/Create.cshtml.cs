@@ -42,8 +42,7 @@ namespace ProjectDefense.Web.Pages.Instructor.Availabilities
 
             Availability.StartDate = DateTime.SpecifyKind(Availability.StartDate, DateTimeKind.Utc);
             Availability.EndDate = DateTime.SpecifyKind(Availability.EndDate, DateTimeKind.Utc);
-
-            // Business validation
+            
             if (Availability.EndDate < Availability.StartDate)
             {
                 ModelState.AddModelError("", "End date must be later than start date.");
@@ -57,8 +56,7 @@ namespace ProjectDefense.Web.Pages.Instructor.Availabilities
                 await LoadRoomSelectListAsync();
                 return Page();
             }
-
-            // Instructor conflict check
+            
             var instructorConflict = await _context.InstructorAvailabilities
                 .AnyAsync(d => d.InstructorId == Availability.InstructorId &&
                                d.StartDate <= Availability.EndDate &&
@@ -73,8 +71,7 @@ namespace ProjectDefense.Web.Pages.Instructor.Availabilities
                 await LoadRoomSelectListAsync();
                 return Page();
             }
-
-            // Room conflict check
+            
             var roomConflict = await _context.InstructorAvailabilities
                 .AnyAsync(d => d.RoomId == Availability.RoomId &&
                                d.StartDate <= Availability.EndDate &&
@@ -95,8 +92,7 @@ namespace ProjectDefense.Web.Pages.Instructor.Availabilities
 
             _context.InstructorAvailabilities.Add(Availability);
             await _context.SaveChangesAsync();
-
-            // Generate time slots
+            
             await GenerateSlotsAsync(Availability);
 
             TempData["SuccessMessage"] = "Availability added and slots generated.";
